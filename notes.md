@@ -35,3 +35,18 @@ What does my README.md page have to look like?
 - elevator pitch
 - key features
 - and a description of how you will use each technology and design images
+
+### How this will be graded:
+* 10% - Proper use of Markdown in README.md
+* 20% - A concise and compelling elevator pitch in your README.md
+* 10% - A Description of key features in your README.md
+* 30% - Description of how you will use each technology
+    * HTML - Basic structural and organizational elements
+    * CSS - Styling and animating
+    * React - Componentization, routing, and fuctional interactivity.
+    * Web service - Endpoints provided by your backend service.
+    * Third party service - Endpoint procided by some other service
+    * Authentication: Register, login, and logout
+    * Database data: Store authentication ad application data.
+    * WebSockket data: Realtime inforation pushed from your backend to your frontend.
+*30% - One or more rough sketches of your application. Images must be embedded in your README.md.
