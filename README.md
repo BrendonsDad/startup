@@ -41,14 +41,14 @@ Remember the excietment you felt when you met and hung out with your best friend
 * WebSocket Data: This will be vital to having messages sent to and from users. I don't think I will have a home/browsing page, but if I did, I might need to use websockets for those things.
 
 
-## Login
+## Join Groups
 ![image0 (2)](https://github.com/user-attachments/assets/0925bfbf-2510-4bb8-8521-8ebb1d5d359d)
 
 ## Messaging
 ![image1 (2)](https://github.com/user-attachments/assets/9a99bfb9-c630-479e-b022-35c8a4305267)
 
 
-## Join Group
+## Login
 ![image2 (1)](https://github.com/user-attachments/assets/f6c69ec5-434e-4244-b021-57ad011b6d94)
 
 
