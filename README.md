@@ -40,12 +40,6 @@ Remember the excietment you felt when you met and hung out with your best friend
 * Database Data: I will use this to store information on my users, such as their name, birthday, username, password, and images.
 * WebSocket Data: This will be vital to having messages sent to and from users. I don't think I will have a home/browsing page, but if I did, I might need to use websockets for those things.
 
-## First Assignment
-What does my README.md page have to look like?
-- include start up specification
-- elevator pitch
-- key features
-- and a description of how you will use each technology and design images
 
 ### How this will be graded:
 
