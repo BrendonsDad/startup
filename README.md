@@ -8,6 +8,9 @@ This markdown file will give several key details about my start up.
 ## Elevator Pitch
 Remember the excietment you felt when you met and hung out with your best friends while growing up? At FriendGauge, we try to capture that feeling. Unlike other social media platforms that try to keep you on them as long as possible, we focuse on helping people with similar interests meet up. Meet people in your area that have a similar taste in music, sports or anything else you could imagine. Invite people to "hang" and form groups. We focus on finding you new friends, and you get to focus on your **real** social life.
 
+![image](https://github.com/user-attachments/assets/d2dba9c4-ad62-48f4-9628-c338298f5c7a)
+(image curtesy of American Behavioral Clinic)
+
 ## Key Features:
 * Invite to Hang!
     * When you find someone you like, invite them to hang out! Set a date and a place. It's that simple.
@@ -17,6 +20,8 @@ Remember the excietment you felt when you met and hung out with your best friend
     * A place where you can add your interests, and find people and groups with similar taste!
 * Login Authentication
     * Exactly as it sounds.
+ 
+![image](https://github.com/user-attachments/assets/459048dd-0be0-43c0-b8a6-b5d889caeaf4)
 
 ## Representing all technologies
 
