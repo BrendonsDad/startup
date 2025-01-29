@@ -50,3 +50,42 @@ What does my README.md page have to look like?
     * Database data: Store authentication ad application data.
     * WebSockket data: Realtime inforation pushed from your backend to your frontend.
 *30% - One or more rough sketches of your application. Images must be embedded in your README.md.
+
+
+## Hyptertext Markup Laguage
+* Originally designed to be a publishing format for web documents, or pages. 
+* HTML is very powerful, but we need CSS and JavaScript to create our full web app. 
+### Common Elements
+* html: the page container
+* head: Header information
+* title: Title of the page
+* meta: Metadata for the page such as character set or viewport setting
+* script: JavaScript reference. Either a external reference, or inline
+* include: External content reference
+* body: The ntire content body of the page
+* header: Header of the main content
+* footer: Footer of the main content
+* nav: Navagational inputs
+* main: Main content of the page
+* section: A section of the main content
+* aside: Aside content from the main content
+* div: A block division of content
+* span: An inline span of content
+* h<1-9>: Text heading. Fro h1, the highest level, down to h9, the lowest level
+* p: A paragraph of text
+* b: Bring attention
+* table: Table
+* tr: Table row
+* th: Table header
+* td: Table data
+* ol, ul: Ordered or unordered list
+* li: List item
+* a: Anchor the text to a hyperlink
+* img: Graphical image reference
+* dialog: Interactive component such as a confirmation
+* form: A collection of user input
+* input: User input field
+* audio: Audio contet
+* video: Video content
+* svg: Scalable vector graphic content
+* iframe: Inline frame of another HTML page
