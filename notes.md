@@ -96,3 +96,6 @@ What does my README.md page have to look like?
 * The header contains a paragraph with a span, and a navigation containing multiple divisions and sub-content
 * The ain contains ultiple section s that contain either an unordered list (ul) or a table. ain also contais an aside for cotent that does ot fit the content flow of the sections
 * The footer has a content division with a single span
+
+## Simon HTML
+* Dont worry about how visually pleasing your app is right now. Only worry about the structure. 
