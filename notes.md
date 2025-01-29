@@ -146,3 +146,49 @@ The canvas element was introduced to HTML in order to facilitate 2D drawing and 
   ctx.stroke();
 </script>
 
+## Week Three Assignment
+* Structure the startup application. This includes all of the pages, headers, footers, images, and content necessary to represent what your application will do. 
+* There should be a placeholder for everything that your application will do.
+* You will wat an HTML file for each of the mai coponets of your application. The default coponent of you rapplication must be represented in a file named index.html. 
+* You will want a similar layout to to simon
+Make sure you have a placeholder for all the technologies that you will eventually eed to represent your application. This includes:
+* Application data: A rendering of application data that you will eventually populate. For Simon, this is the siple SVG graphic buttons, the username, and a radom inspirational quote.
+* Authentication: An input for your user to create an account and login. You will want to display the user's name after they login.
+* Database data: A renderig of application data that is stored in the database. For sion this is the high scores of all the players.
+* WebSocket data: A rendering of data that is received from your server. This may be realtime data sent from other users. Or realtime data that your service is geerating. For simon this updates everytime a user creates or ends a game. 
+* You must use the same startup Github repository that you created for the specification deliverable. Update the otes.md file with things that you learn as you work on your startup.
+* Once you have developed your application to where you want it, you need to release it to your production environment. Copy the deployFiles.sh script from the Sion HTML repo to your startup repo and use startup for the service paraeter (-s)
+for example:
+./deployFiles.sh -k ~/keys/production.pem -h yourdomain.click -s startup
+
+## Deliverable
+1. Review and deploy Simon HTML
+    * Clone the HTML Simon repository to your developent environment. 
+    * Open the project in VS Code ad exaine the application's use of HTML.
+    * Execute in your develpent environment using the VS Code live server extension.
+2. Create the HTML deliverable fo your startup applicatio. Make sure your name is displayed in the application and that there is a link to your GitHub repository. 
+3. Represent all of the content ad structure that your final application will need.
+4. Include placeholders for all the tecology that your application will eventually represent. 
+5. Make sure your main HTML file is named index.html so that it will load by default.
+6. Periodically commit and push your code to GitHub.
+7. Periodically Update your startup repository's notes.md file to reflect what you have learned and what you want to remember.
+8. Push your final verison of your project to GitHub.
+9. Deploy your startup application to your production environment (your server)
+10. Make sure your application is available from your production environment. 
+11. Upload your URL to your startup application to the Canvas assignment.
+
+Grading Rubric:
+* Simon HTML deployed to your production enviornment
+* A link to your GitHub startup repository prominetly displayed on your applications home page
+* Notes in your startup Git repository README.md File docuenting what you modified ad added with this deliverable.
+Enough git coits
+* Properly structured HTML
+    * 20% HTML pages for each component of your application
+    * 10% Proper use of HTML tags including BODY, NAV, MAIN, HEADER, FOOTER
+    * 10% Links between pages as necessary
+    * 10% Application textual content
+    * 10% Placeolder for 3rd party service calls
+    * 10% Application images
+    * 10% Login placeholder, including username display
+    * 10% Database data placeholder showing content stored in the database
+    * 10% Websocket data placehholder showing where realtie communication will go.
