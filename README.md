@@ -52,3 +52,15 @@ Remember the excietment you felt when you met and hung out with your best friend
 ![image2 (1)](https://github.com/user-attachments/assets/f6c69ec5-434e-4244-b021-57ad011b6d94)
 
 
+# Deliverables
+
+## HTL deliverable
+For this deliverable, I built all the structure of my application usig HTML
+- [X] **HTML pages** - I built the basic structure of all my pages (4 in total) referencing the wireframes I made last week.
+- [X] **Links** - Links properly work between each page.
+- [X] **Text** - I have display text representing the different groups that can be joined, the about page, and the button to create a new group, as well as headers for each page.
+- [X] **DB/Login** - Iput boxes and submit button for login and create an aaccount. Database would be referenced here, and the data base would also reference the friends you have made in the messaging board.
+- [X] **Websocket** - Text messaging would be displayed in the messaging board as evidence by the image place holder. Divisions set up to receive this.
+- [X] **3rd party** - Button set up to share a song which would use an API such as spotifies.
+
+
