@@ -6,11 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Friendzie HTML</title>
     <link rel="icon" href="favicon.ico" />
+    <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          border: 1px solid rgba(0,0,0,0.6);
+          padding: 10px;
+        }
+
+        .discImgs {
+            text-align: center;
+        }
+      </style>
   </head>
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
-      <h1>Friendzie<sup>&reg;</sup></h1>
+      <h1>Friendzzie<sup>&reg;</sup></h1>
 
       <!-- Navigation elements -->
       <nav>
@@ -29,38 +43,43 @@
 
     <main>
         <h1>JOIN GROUPS IN YOUR AREA</h1>
-        <tr>
-            <th>Punk Rock Lovers (Provo)</th>
-            <th>Intremural Football (Saturdays)</th>
-            <th>Medeival Larping</th>
-        </tr>
-        <tr>
-            <td>
-                <img src="guitar.jpg" width="100px" alt="guitar"/>
-            </td>
-            <td>
-                <img src="football.jpg" width="100px" alt="football"/>
-            </td>
-            <td>
-                <img src="sword.jpg" width="100px" alt="sword"/>
-            </td>
-        </tr>
-        <tr>
-            <th>Orem Baseball</th>
-            <th>Hiking Club</th>
-            <th>Sunset Squad</th>
-        </tr>
-        <tr>
-            <td>
-                <img src="baseballmit.jpg" width="100px" alt="baseball mit"/>
-            </td>
-            <td>
-                <img src="mountains.jpg" width="100px" alt="Mountain range"/>
-            </td>
-            <td>
-                <img src="beach.jpg" width="100px" alt="Sunset at beach"/>
-            </td>
-        </tr>
+        <table>
+            <tr>
+                <th>Punk Rock Lovers (Provo)</th>
+                <th>Intremural Football (Saturdays)</th>
+                <th>Medeival Larping</th>
+            </tr>
+            <tr>
+                <td class="discImgs">
+                    <img src="guitar.jpg" width="100px" alt="guitar"/>
+                </td>
+                <td class="discImgs">
+                    <img src="football.jpg" width="100px" alt="football"/>
+                </td>
+                <td class="discImgs">
+                    <img src="sword.jpg" width="100px" alt="sword"/>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Orem Baseball</th>
+                <th>Hiking Club</th>
+                <th>Sunset Squad</th>
+            </tr>
+        
+            <tr>
+                <td class="discImgs">
+                    <img src="baseballmit.jpg" width="100px" alt="baseball mit"/>
+                </td>
+                <td class="discImgs">
+                    <img src="mountains.jpg" width="100px" alt="Mountain range"/>
+                </td>
+                <td class="discImgs">
+                    <img src="beach.jpg" width="100px" alt="Sunset at beach"/>
+                </td>
+            </tr>
+        </table>
 
         <div class="makeGroup">
             <button>
