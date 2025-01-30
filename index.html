@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <!-- Tell browsers not to scale the viewport automatically -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simon HTML</title>
+    <title>Friendzie HTML</title>
     <link rel="icon" href="favicon.ico" />
   </head>
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
-      <h1>Simon<sup>&reg;</sup></h1>
+      <h1>Friendzie<sup>&reg;</sup></h1>
 
       <!-- Navigation elements -->
       <nav>
         <!-- Menu is a semantic alternative to <ul> that represents an interaction -->
         <menu>
           <li><a href="index.html">Home</a></li>
-          <li><a href="play.html">Play</a></li>
-          <li><a href="scores.html">Scores</a></li>
+          <li><a href="discover.html">Discover</a></li>
+          <li><a href="messaging.html">Messaging</a></li>
           <li><a href="about.html">About</a></li>
         </menu>
       </nav>
@@ -28,8 +28,8 @@
     </header>
 
     <main>
-      <h1>Welcome to Simon</h1>
-      <form method="get" action="play.html">
+      <h1>We are glad you are <i>here.</i> We will help you get out <i>there.</i></h1>
+      <form method="get" action="discover.html">
         <div>
           <span>@</span>
           <input type="text" placeholder="your@email.com" />
@@ -38,16 +38,21 @@
           <span>🔒</span>
           <input type="password" placeholder="password" />
         </div>
-        <button type="submit">Login</button>
+        <div>
+            <span>DOB</span>
+            <input type="date" placeholder="mm/dd/yyyy" />
+          </div>
         <button type="submit">Create</button>
+        <p>Already have an Account? Here:</p>
+        <button type="submit">Login</button>
       </form>
     </main>
 
     <footer>
       <hr />
-      <span class="text-reset">Author Name(s)</span>
+      <span class="text-reset">Aubury Orr</span>
       <br />
-      <a href="https://github.com/webprogramming260/simon-html">GitHub</a>
+      <a href="https://github.com/BrendonsDad/startup">GitHub</a>
     </footer>
   </body>
 </html>
