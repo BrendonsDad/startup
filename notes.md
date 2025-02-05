@@ -350,3 +350,59 @@ if you dont want to host font files on your server, then you can load them from 
 p {
   font-family: 'Rubik Microbe';
 }
+```
+
+# CSS Animation
+Using CSS to animate your componetns is an easy way to make your application feel alive and interactive. You create CSS animations using the animation properites and defining keyframes for what the element should look like at different ties in the animation. Lets walk through an example:
+
+We have a paragraph of centered text and we want it to zoom in until its size is 20% of the view height
+
+```css
+p {
+  text-align: center;
+  font-size: 20vh;
+}
+```
+
+To make thishappen we specify that we are animating the selected elements by adding the animation-name property with a value of demo. This name refers to the name of the keyframes that we will specify in a minute. The keyframes tell what CSS properties should be applied at different key points in the animation sequence. We also add an animation-duration property in order to specify that the animation should last for three seconds.
+
+```css
+p {
+  text-align: center;
+  font-size: 20vh;
+
+  animation-name: demo;
+  animation-duration: 3s;
+}
+```
+
+Now we are ready to create the keyframes. We dont have to define what happens at every millisecond of the animation. Instead we only need to define the key points, and CSS will generate a smooth transition to move from one keyframe to another. Inour case we simply want to start with text that is invisible and have it zoom into the full final size. We can do this with two frames that are designated with the keywords from and to.
+
+```css
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+  to {
+    font-size: 20vh;
+  }
+}
+```
+
+Thats everything we need to do. However, let's make one more addition. It would look better if towards the end, the paragraph bounced out a little bigger than it's final size. We can accomidate that by adding another key frame that happens 95% through the animation. 
+
+```css
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  95% {
+    font-size: 21vh;
+  }
+
+  to {
+    font-size: 20h;
+  }
+}
+```
