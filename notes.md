@@ -243,3 +243,76 @@ CSS defines everything as boxes. When you apply styles, you are applying them to
 the box goes in this order, starting from the outside:
 
 margin->border->padding->content
+
+# CSS Selectors
+* The first step in understanding CSS is mastering how to select the elements that a CSS rule applies to. 
+* Starting off, we can make all elemetns in the document use a sans-serif font. 
+
+```css
+body {
+  font-family: sans-serif;
+}
+```
+
+We can also use element name selectors to give a bottom border to the top level heading (h1) as well as modify the section elements to pop out with a gray background and some white space in the padding and margins.
+
+```css
+h1 {
+  border-bottom: thin black solid;
+}
+section {
+  background: #eeeeee;
+  padding: 0.25em;
+  margin-bottom: 0.5em;
+}
+```
+## Combinators
+Next we want to change the color of the second level headings (h2), but we only want to do that within the sections for each department. We can provide a descendant combinator that is defined with a space delimited list of values where each item in the list is a descendant of the previous item. So our selector would be all h2 elements that are descendants of section elements. 
+
+```css
+section h2 {
+  color: #004400;
+}
+```
+
+There are other types of combinators that you can use. These include the following.
+
+* Descendant -- a list of descendants -- example: body section
+* Child -- A list of direct children -- example: section > p
+* General sibling -- A list of siblings -- example: div ~ p
+* Adjacent sibling -- A list of adjacent sibling -- example: div + p
+
+## Class selector
+
+example:
+
+```css
+.summary {
+  font-weight: bold;
+}
+```
+
+you can also combine the eleent name and the class selectors to select all paragraphs with the class of summary:
+
+```css
+p.summary {
+  font-weight: bold;
+}
+```
+
+## ID selector
+ID selectors reference the ID of an eletn. All IDs should be unique within an HTML document so this select targets a specific element. 
+
+```css
+#physics {
+  border-left: solid 1em purple;
+}
+```
+
+## Pseudo Selector
+CSS also defines a significatnt list of qsuedo selectors which select based on positional relationships, mouse interactions, hyperlink visitation states, and attributes. We will give just one exaple. Suppose we want our purple highlight bar to appear only when the mouse hovers over the text. To accomplish this we can change our ID selector to select whener a section is hovered over.
+
+```css
+section:hover {
+  border-left: solid 1em purple;
+}
