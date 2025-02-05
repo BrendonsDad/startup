@@ -192,3 +192,54 @@ Enough git coits
     * 10% Login placeholder, including username display
     * 10% Database data placeholder showing content stored in the database
     * 10% Websocket data placehholder showing where realtie communication will go.
+
+# Cascading Style Sheets
+* Helps developer create complex renderings of dynamic content that is responsive to the actions of the user and the device the application is rendered on. 
+* Functionally, CSS is primarily concerned with defining rulesets or simply rules. 
+* A rule is comprised of a selector that selects the elements to apply te rule too. 
+
+## Associating CSS with HTML
+
+There are 3 ways you can associate CSS with HTML. The first way is to use the style attribute of an HTML element ad explicity assignn one or more declarations. The best way is to use the HTML linki element to create a hyper link reference to a external file containig CSS rules. The link element must appear in the head element of the document.
+
+```html
+<link rel="stylesheet" href="styles.css" />
+```
+
+**styles.css**
+
+```css
+p {
+  color: green;
+}
+```
+
+The link element is usually the prefered way to define CSS.
+
+## Cascading styles
+We might set color property for all body elements to be red, and then paragraph elements to be green, and then span elements to be blue, and finally use a style element on a specific span to be black.
+
+```html
+<body>
+  <p><span style="color:black">CSS</span></p>
+</body>
+```
+
+```css
+body {
+  color: red;
+}
+p {
+  color: green;
+}
+span {
+  color: blue;
+}
+```
+* In this case the rules cascade down from the highest nodes in the DOM tree to the lowest level. Any declaration property defined at lower level will override the higher declaration. You can see this happening if you use the browser's debugger.
+
+## The box model
+CSS defines everything as boxes. When you apply styles, you are applying them to a region of the display that is a rectangular box. Withi an elements box there are several internal boxes. The innermost box holds the elements content. 
+the box goes in this order, starting from the outside:
+
+margin->border->padding->content
