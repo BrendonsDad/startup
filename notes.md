@@ -316,3 +316,37 @@ CSS also defines a significatnt list of qsuedo selectors which select based on p
 section:hover {
   border-left: solid 1em purple;
 }
+```
+
+# CSS Declarations
+CSS rule declarations specify a property and value to assign when the rule selector matches one or more elements. There are legions of possible properties defined for modifying the style of an HTML document. For our purposes we will discuss just a few of the more commonly used ones so that you can get a feel for wide variety of functionality they represet.
+
+**references the table on github for the class.**
+
+## CSS Fonts
+The CSS font-family property defines whta fonts should be used. 
+
+There are four major font familys: Serif, sans-serif, fixed, and symbol. 
+
+### Importing fonts
+In addition to referencing standard fonts found on the user's computer you can specify a font that you provide with your application. That way your application is guaranteed to always look the same. In order to have the browser load a font you use the @font-face rule ad provide the font name and source location
+
+```css
+@font-face {
+  font-family: 'Quicksand';
+  src: url('https://cs260.click/fonts/quicksand.ttf');
+}
+
+p {
+  font-family: Quicksand;
+}
+```
+
+if you dont want to host font files on your server, then you can load them from a font provider. For example, Google provides a large selection of open source fonts that you can use without paying any royalties. The easiest way to use Google fonts is to use a CSS import statement to referece the Google Font Service. This will automatically generate the CSS for importing the font.
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Rubik Microbe&display=swap');
+
+p {
+  font-family: 'Rubik Microbe';
+}
