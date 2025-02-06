@@ -406,3 +406,173 @@ Thats everything we need to do. However, let's make one more addition. It would 
   }
 }
 ```
+
+# Responsive design
+Modern web applications are expected to run well on a large variety of computing devices.
+
+## Display
+The CSS display property allows you to change how an HTML element is displayed by the browser. The common options for the display property include the following. 
+
+* none: Dont display this element. The element still exists, but the browser will not render it. 
+* block: Display this element with a width that fills its parents element. A p or div element has block display by default.
+* inline: Display this element with a width that is only as big as its content. A b or span eleent has inlie display by default.
+* flex: Display this element's children in a flexible orientation.
+* grid: Display this elemets children in a grid orientation.
+
+## Viewport meta tag
+When smart mobile devices started gaining popularity, they began to be used to view websites. However, the websites were optimized for desktop displays and ot little tiny mobile screens. To solve this mobile browsers autmatically started scaling the website so that it looked better on a small screen. Unfortunatly, as web applications started being responsve to screen size, the bile browser's scaling got in the way. The solution is to include the meta tag in the head elemtn of all your HTML pages. This tells the browser to not scale the page. 
+
+```css
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+```
+
+## Float
+The float css property moves an element to the left or right of its container element and allows inline elements to wrap around it. For example, if we had an aside element followed by a lare paragraph of text, we could create the following CSS rule in order to cause the text to wrap around the aside.
+
+## Media queries
+One of the main CSS features for creating responsive applications is the @media selector. This selector dynamically detects the size ad orientation of the device and applies CSS rules to represent the structure of the HTML in a way that accommodates the change.
+
+We can use the @media selector to tell us which side of the screen (technically the viewport) is the longest.
+
+In this example we simply want to know if the screen is oriented in portrait mode (short side on top) or not. 
+```css
+
+@media (orientation: portrait) {
+  div {
+    transform: rotate(270deg);
+  }
+}
+
+```
+You can also use media queries to make entire pieces of you rapplication disappear
+
+```css
+@media (orientation: portrait) {
+  aside {
+    display: none;
+  }
+}
+```
+
+## CSS Grid
+
+The grid display layout is useful when you want to display a group of child elements in a responive grid. We start with a container element that has a bunch of child elements.
+
+```HTML
+<div class="container">
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+</div>
+```
+
+We turn this into a responsive grid by including a CSS display property with the value of grid on the container element.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 300px;
+  grid-gap: 1em;
+}
+```
+
+## CSS Flexbox
+The flex display layout is useful when you want to partition your application into aread that responsively move around as the window resizes or the orientation changes. In order to demonstrate the power of flex we will build an application that has a header, footer, and a main content area that is split into two sections, with controls on the left and content on the right.
+
+### Example
+
+We build the structure with our html
+
+```html
+<body>
+  <header>
+    <h1>CSS flex &amp; media query</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Controls</h2>
+    </section>
+    <section>
+      <h2>Content</h2>
+    </section>
+  </main>
+  <footer>
+    <h2>Footer</h2>
+  </footer>
+</body>
+```
+
+Now we can use flexbox to make it call come alive. We want our top level flexbox children to be column oriented and so we add the flex-direction property with a value of column. we then add some simple other declarations to zero out the margin and fill the entire viewport with our application frame.
+
+```css
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100vh;
+}
+
+To get the division of space for the flexbox children correct we add the following flex properties to each of the children:
+
+```css
+header {
+  flex: 0 80px; /*0 meansit will not grow and 80px means it has a starting basis height of 80pixles*/
+  background: hsl(223, 57%, 38%);
+}
+
+footer {
+  flex: 0 30px;
+  background: hsl(180, 10%, 10%);
+}
+
+main {
+  flex: 1; /*flex:1 one means it will get one fractional unit of growth and sicne it is the only child with a non-zero growth value it will get all the remaining space. */
+  display: flex;
+  flex-direction: row;
+}
+```
+
+Now we just need to add CSS to the control and content areas represented by the two child section elements. We want the controls to have 25% of the space and the content to have the remaining. So we set the flex property value to 1 and 3 respectively. That means that the controls get one unit of space and the content gets three units of space. No matter how we resize things this ratio will responsively remain. 
+
+```css
+section:nth-child(1) {
+  flex: 1;
+  background-color: hsl(180, 10%, 80%);
+}
+
+section:nth-child(2) {
+  flex: 3;
+  background-color: white;
+}
+```
+
+### Media Query 
+That completes our original design, but we also want to handle small screen sizes. To do this, we add some media queries that drop the header and the footer if the viewport gets to short and orient the main sections as rows if it gets too narrow. 
+
+To support the narrow screen (portrait mode), we include a media query that detects when we are in portrait orientation and sets the flex-direction of the main element to be column instead of row. This cuases the children to be stacked on top of each other instead of side by side.
+
+to handle making our header and footer disapper wehn the screen is to short to display them, we use a media query that triggers when our viewport heigth has a maximum value of 700 pixels. When that is true we change the display property for both the header and the footer to be none so that they will be hidden when that happens the main element becomes the only child and since it has a flex value of 1, it takes over everything.
+
+```css
+@media (orientation: portrait) {
+  main {
+    flex-direction: column;
+  }
+}
+
+@media (max-height: 700px) {
+  header {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+}
+```
