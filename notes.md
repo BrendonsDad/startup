@@ -576,3 +576,25 @@ to handle making our header and footer disapper wehn the screen is to short to d
   }
 }
 ```
+
+# Debugging CSS
+You can use the google chrome debugger to acces developer tools by right clicking on the HTML page element that you want to debug and seleccint the inspect option. 
+
+# CSS Frameworks
+CSS frameworks provide funcitons and components that commonly appear in web applications as web developer built more an dmore web applications they began to use the sam patterns over and over. They combined these patterns into a shared package of code and contributed it to the world as open surce repositories. This helped not only decrease the time to develope an application, but created a common user experience for the web in general. 
+
+## Tailwind
+A new rising contender in the CSS framework space is tailwind CSS and its associated component library Tailwind UI.    
+
+## Simon CSS 
+* All reference main.css, and their own specific css. 
+* Flex is used to delimit the header, main, and footer elements. This makes them responsive to different screen sizes.
+*The use of absolute positioning relative to the parent element for the game controls.
+* The selection based on class attributes to style elements.
+* The override of Bootstrap in order keep the menue from changing the flex direction to column on small screens. 
+The use of @media selectors to hide content when the screen is too small.
+
+# CSS Deliverable
+* Application should basically appear as you would expect. This includes styling of placeholder data that you expect to get from the user logging in, application data, and webSocket data.
+* You must use the same startup GitHub repository that you created for the previous deliverable.
+* Update the notes.md file with thing you learned
