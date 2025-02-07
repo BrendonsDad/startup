@@ -54,7 +54,7 @@ Remember the excietment you felt when you met and hung out with your best friend
 
 # Deliverables
 
-## HTL deliverable
+## HTML deliverable
 For this deliverable, I built all the structure of my application usig HTML
 - [X] **HTML pages** - I built the basic structure of all my pages (4 in total) referencing the wireframes I made last week.
 - [X] **Links** - Links properly work between each page.
@@ -62,5 +62,15 @@ For this deliverable, I built all the structure of my application usig HTML
 - [X] **DB/Login** - Iput boxes and submit button for login and create an aaccount. Database would be referenced here, and the data base would also reference the friends you have made in the messaging board.
 - [X] **Websocket** - Text messaging would be displayed in the messaging board as evidence by the image place holder. Divisions set up to receive this.
 - [X] **3rd party** - Button set up to share a song which would use an API such as spotifies.
+
+## CSS deliverable
+For this deliverable, I built all the CSS styling of my web application.
+- [X] **Header, footer, main content body** - I added a consistent style for the header, footer and main content body to make it look modern and clean
+- [X] **Navigation** - There is a simplistic menue at the top of the web application that allows the user to flip through each page. Enhanced look using CSS
+- [X] **Responsive to window resizing** - Used media queries, grids, and % based values to ensure that the application fits a variety of screens.
+- [X] **Application elements** - Used CSS to build a grid of all the potential groups people can join as well as many buttons to build 
+- [X] **Application text content** - Made all the text look better and implemented CSS to have application text appear more in context
+- [X] **Application images** - All nescicary images scaled and positioned, and decorated using CSS.
+
 
 
