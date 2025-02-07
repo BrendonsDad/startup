@@ -6,9 +6,15 @@
     grid-gap: 1em;
     color:aqua;
     justify-content: center;
+    clear: both;
   }
 
   .container > div {
 
     background-color: black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
   }
+

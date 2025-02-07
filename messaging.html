@@ -38,29 +38,32 @@
     </header>
 
     <main class="container-fluid bg-secondary text-center">
-        <h1>Messaging</h1>
-        <div>
+        <h1 class="Messaging">Messaging</h1>
+        <div class="friend">
             <p>Mellisa</p>
         </div>
         <div class="invite">
-            <button>
+            <button class="btn btn-primary">
                 <p>Invite to hang</p>
               </button>
         </div>
         <div class="textimg">
-            <img src="discordex.PNG" alt="example of texting"/>
+            <img class="textExample" src="discordex.PNG" alt="example of texting"/>
         </div> 
-        <div class="sharesong">
-            <button>
+        <div class="sharesong ">
+            <button class="btn btn-secondary">
                 <p>Share a song</p>
               </button>
         </div>
-        <form method="get">
-            <div>
-              <span>-></span>
-              <input type="text" placeholder="say hi!" />
-            </div>
-          </form>
+        <div class="message">
+          <form method="get">
+              <div class="input-group mb-3">
+                <span class="input-group-text">➡️</span>
+                <input class="form-control" type="text" placeholder="say hi!" />
+                <button type="submit" class="btn btn-primary">Send</button>
+              </div>
+            </form>
+        </div>
 
 
     </main>
