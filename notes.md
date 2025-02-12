@@ -598,3 +598,54 @@ The use of @media selectors to hide content when the screen is too small.
 * Application should basically appear as you would expect. This includes styling of placeholder data that you expect to get from the user logging in, application data, and webSocket data.
 * You must use the same startup GitHub repository that you created for the previous deliverable.
 * Update the notes.md file with thing you learned
+
+
+# Startup React Phase 1: Routing
+* Officially known as ECMAScript, JaaScript is a weakly typed language based upon concept found in C, Java, and Scheme. By far the mosed used programming language in the world. 
+* Used to create serverless functions. 
+* Javascript is executed using an interpreter at runtime instead of compiling it into a machine specific binar at build time. 
+
+## Getting started
+
+Let's start with a basic example. The follwoing Java
+Script will concatenate three string together and then throw awahy the result. Not very useful, but JavaScript doesnt complain much. 
+
+```js
+'Hello' + ' ' + 'world';
+```
+
+Onle slightly more omplex is to call a function with the result of our concatenated string. In this case we call the JavaScript runtime's built in function console.log to output the string to the debugger console. 
+
+```js
+console.log('Hello' + ' ' 'world');
+// OUTPUT: Hello world
+```
+
+You can also write your own functions.
+
+```js
+function join(a, b) {
+  return a + ' ' + b;
+}
+
+console.log(join('Hello', 'world'));
+// OUTPUT: Hello world
+```
+
+You can comment your JavaScript with either line or block comments
+
+```js
+// line comment
+
+/*
+block comment
+*/
+```
+
+### Code delimiters
+While it is not technically requred in most casees, it is conisdered good form to end JavaScript statements with a semicolon (;). Code blocks, and their resulting scope, are defined with curly braces ({ })
+
+### Playgrounds
+Before we go any further we need a way for you to write and run JavaScript yourself. there are two easy ways to do this. 
+1. Use an online sanbox like codepen
+2. Use your browsers debugger. For example, if you open Chrome and press f12 the debugger will display. Select the Console menue option. this will display a JavaScript interpreter where you can write and execute your code. 
