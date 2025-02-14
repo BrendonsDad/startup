@@ -649,3 +649,65 @@ While it is not technically requred in most casees, it is conisdered good form t
 Before we go any further we need a way for you to write and run JavaScript yourself. there are two easy ways to do this. 
 1. Use an online sanbox like codepen
 2. Use your browsers debugger. For example, if you open Chrome and press f12 the debugger will display. Select the Console menue option. this will display a JavaScript interpreter where you can write and execute your code. 
+
+
+# Node.js
+
+In 2009 Ryan Dahl created Node.js. it was teh first successful application for deploying JavaScript outside of a browser. This changed teh JavaScript mindset from a browser technology to one that could run on the server as well. this means that JavaScript can power your entire technology stack. One language to rule them all. Node.js is often just referred to as Node. and is currently maintained by the Open.js Foundation.
+
+"You can never understand everything. But, you should push yourself to understand the system" - Ryan Dahl.
+
+Browsers run JavaScript using a JavaScript interpreter and execution engine. For example Chromium based browsers all use use the V8 engine created by Google. Node.js simply took the V8 engine and ran it inside of a console application. When you run a JavaScript program in Chrome or Node.js, it is V8 that rerads your code and executes it. With either program wrapping V8, the result is the same. 
+
+# Router
+A web framework router provides essential functionality for single page applications that otherwise would have been handled by rendering multiple HTML pages. With a multiple-webpage application the headers, footers, navigation, and common components must be either duplicate in each HTML page, or injected before the server sends the page to the browser. 
+
+With single page applications the browesr loas only one html page and then javascript is used to manipulate the DOM to make it have the appearance of multiple pages. 
+
+This has the advantage of being able to store state as the user interacts with the page and not having to continually go to the server to get new HTML pages.
+
+React does not have a standard router package, and there are many that you can choose from. We will use react router dom. The simplified routing functionality of react router dom derives from the project react router for its core functionality. 
+
+A basic implementation of the router consists of a Browser Router component that encapsulates the entire application and controls the routing action. The Link, or NavLink, component captures user navigation events and modifies what is rendered by te routes component by matching up the to and path attributes. The example contains two components. The App component with the router and a Page component that is routed to when a link is pressed. 
+
+```jsx
+function Page({ color }) {
+  return (
+    <div className="page" style={{ backgroundColor: color}}>
+      <h1>{color}</h1>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="app">
+        <nav>
+          <NavLink to="/">Red</NavLink>
+          <NavLink to="/green">Green</NavLink>
+          <NavLink to="/blue">Blue</NavLink>
+        </nav>
+
+        <main>
+          <Routes>
+            <Route path="/" element={<Page color="red" />} exact />
+            <Route path="/green" element={<Page color="green" />} exact />
+            <Route path="/blue" element={<Page color="blue" />} exact />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+```
+
+## Router Example
+You can enhance the simple Hello World React app that you created in previous instruction to include a router by first installing the React Dom dependency.
+
+npm install react-router-dom
+
