@@ -1,0 +1,23 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "Startup for my Web Design Class, tentative name: FriendGauge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrendonsDad/startup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrendonsDad/startup/issues"
+  },
+  "homepage": "https://github.com/BrendonsDad/startup#readme",
+  "dependencies": {
+    "give-me-a-joke": "^0.5.1"
+  }
+}
