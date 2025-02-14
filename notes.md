@@ -659,6 +659,89 @@ In 2009 Ryan Dahl created Node.js. it was teh first successful application for d
 
 Browsers run JavaScript using a JavaScript interpreter and execution engine. For example Chromium based browsers all use use the V8 engine created by Google. Node.js simply took the V8 engine and ran it inside of a console application. When you run a JavaScript program in Chrome or Node.js, it is V8 that rerads your code and executes it. With either program wrapping V8, the result is the same. 
 
+## Checking that Node is installed
+The node.js console application is simply called node. You can verify that Node is working correctly by running node with the -v parameter. Note that your version might be different than what is shown here. As long as it is an LTS version you should be fine. 
+
+-> node -v
+
+## Running Programs
+You can execute a line of JavaScript with Node.js from your console with the -e parameter
+
+
+```sh
+-> node -e "console.log(1+1)
+```
+
+You can also run node in interpretive mode by executing it without any parameters and then typing your JavaScript code directly into the interpreter.
+
+```sh
+-> node
+Welcome to Node.js v16.15.1
+>1+1
+2
+>console.log('hello')
+hello
+```
+
+However, to do real work you need to execute an entire project composed of dozens or even hundreds of JavaScript files. You do this by creating a single starting JavaScript file, named something like index.js, that refereces the code found in the rest of your project. You then execute your coe by running node with index.js as a parameter. For exapmle with the following JavaScript saved to a file named index.js
+
+```jsx
+function countdown() {
+  let i = 0;
+  while (i++ < 5>) {
+    console.log(`Counting ... ${i}`);
+  }
+}
+
+countdown();
+```
+
+We can execute the JavaScript by passing the file to node, and receive the following result.
+
+-> node index.js
+Counting ... 1
+Counting ... 2
+Counting ... 3
+Counting ... 4
+Counting ... 5
+
+## Node Package manager
+While you could write all of the JavaScript for everyting you need, it is always helpful to use preexisting packages of JavaScript for implementing common tasks. To load a package using Node.js you must take two steps. First install the package locally on you rmachine using the Node Package Manager (NPM), and then include a require statement in your code that refereences the package name. NPM is automatically installed when you install Node.js.
+
+NPM knows how to access a massive repository of preexisting packages. You can search for packages on the NPM website. However, before you start using NPM to install packages you need to initialize your code using NPM. This is done by creating a directory that will contain your JavaScript and then running npm init. NPM will step you through a series of questions about the project you are creating youcan press the return key for each of the questions if you want to accpt the defaults. 
+
+### Note
+When you start installing package dependencies, NPM will create an additional file named package-lock.json and a directory named node_modules in your project directory. The node_modules directory contains the actual JavaScript files for the package and all of its dependent packages. As you install several packages this directory will start to get very large. You do not want to check this directory into your source control system since it can be very large and be built using the informationcontained in the package.json and package-lcok.json files. So make sure you include node_modules
+
+When you clone your source code form Github to a new location, the first thing you should do is run npm install in the project directory. This will cause NPM to download all of the previously installed packages and recreate the node_modules directory.
+
+The package-lock.json file tracks the version of the package that you installed that way if you rebuild your node_modules directory you will have the version of the package you intitially installed and not the latest available version. 
+
+With NPM and the joke package installed you can now use the joke package in a JavaScript file by refrencing the package name as a parameter to the require function. This is then followed by a call to the joke object's getRandomDadJoke function to actually generate a joke create a file named index.js and paste the following into it. 
+
+index.js
+```jsx
+const giveMeAJoke = require('give-me-a-joke');
+giveMeAJoke.getRandomDadJoke((joke) => {
+  console.log(joke);
+});
+```
+
+
+This may seem like a log of work but after you do it a few times it will begin to feel natural. Just remember the main steps.
+
+1. Create your project directory
+2. Initialize it for use with NPM by running npm init -y
+3. Make sure .gitignore file contains node_modules
+4. Install any desired packages with npm install <package name here>
+5. Add require('package name here') to your application's JavaScript
+6. USe the code the package provides in your JavaScript
+7. Run your code with node index.js
+
+## Package.json
+
+If you list the files in the directory you will notice that it has created a file named package.json. This file contains three main things: 1. Metadata about your project such its name and the default entry JavaScript file, 2) commands (scripts) that you can execute to do things like run, test, or distribute your code and 3. Packages that this project depends upon. The following shows tha tyour package.json looks like currently. It has some default metadata and a simple placeholder script that just runss the echo command when you execute npm run test from the console. 
+
 # Router
 A web framework router provides essential functionality for single page applications that otherwise would have been handled by rendering multiple HTML pages. With a multiple-webpage application the headers, footers, navigation, and common components must be either duplicate in each HTML page, or injected before the server sends the page to the browser. 
 
