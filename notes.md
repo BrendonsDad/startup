@@ -742,6 +742,33 @@ This may seem like a log of work but after you do it a few times it will begin t
 
 If you list the files in the directory you will notice that it has created a file named package.json. This file contains three main things: 1. Metadata about your project such its name and the default entry JavaScript file, 2) commands (scripts) that you can execute to do things like run, test, or distribute your code and 3. Packages that this project depends upon. The following shows tha tyour package.json looks like currently. It has some default metadata and a simple placeholder script that just runss the echo command when you execute npm run test from the console. 
 
+
+# Debugging Node.js
+
+Now that you are writing JavaScript that runs using Node.js, you need a way to launch and debug your code that runs outside of the browser. One great way to do that is to use the debugging tools built into VS Code. To debug JavaScript in VS Code you first need some JavaScript to debug. Open up VS Code and create a new file named main.js and paste the following code into the file. 
+
+### Node --watch
+
+Once you start writing complex web applications you will find yourself making changes in the middle of debugging session and you would like to have node restart automatically and update the browser as teh changes are saved. This seems like a simple thing, but over the course of hundreds of changes, every second you save really starts to add up. 
+
+To Accomplish this you can start Node with the watch option. This causes Node to watch all your source code files and automatically reload itself if anything changes. 
+
+You can experieent with this by starting node with the --watch parameter
+
+```sh
+node --watch main.js
+```
+
+With VS Code you can create a launch configuration that specifies the watch parameter when every time you debug with VS Code. In VS Code press CTRL-SHFT-P and type the command Debug: Add configuration. . Select the Node.js option. This will create a launch configuration named .vscode/launch.json. Modify the configuration so that it includes the --watch parameter. This should look something like the following. 
+
+
+
+
+# Adding JavaScript to HTML
+
+
+
+
 # Router
 A web framework router provides essential functionality for single page applications that otherwise would have been handled by rendering multiple HTML pages. With a multiple-webpage application the headers, footers, navigation, and common components must be either duplicate in each HTML page, or injected before the server sends the page to the browser. 
 
