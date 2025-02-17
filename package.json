@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/BrendonsDad/startup#readme",
   "dependencies": {
-    "give-me-a-joke": "^0.5.1"
+    "give-me-a-joke": "^0.5.1",
+    "react-router-dom": "^7.1.5"
   }
 }

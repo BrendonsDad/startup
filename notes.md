@@ -1109,6 +1109,9 @@ root.render(<App />);
 
 
 # Router
+
+## React Router notes
+
 A web framework router provides essential functionality for single page applications that otherwise would have been handled by rendering multiple HTML pages. With a multiple-webpage application the headers, footers, navigation, and common components must be either duplicate in each HTML page, or injected before the server sends the page to the browser. 
 
 With single page applications the browesr loas only one html page and then javascript is used to manipulate the DOM to make it have the appearance of multiple pages. 
