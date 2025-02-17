@@ -1163,3 +1163,15 @@ You can enhance the simple Hello World React app that you created in previous in
 
 npm install react-router-dom
 
+# Toolchains
+As web programming becomes more and more complex it became necessary to abstract away some of that complexity with a series of tools. Some common functional pieces in web application tool chain include:
+
+* code repository - stores code in a shared, versioned location
+* Linter - Removes, or warns of non-idiomatic code usage.
+* Prettier - Formats code according to a shared standard
+* Transpiler - Compiles code into a different format. For example, from JSX to JavaScript, TypeScript to JavaScript, or SCSS to CSS. 
+* Polyfill - Generates backward compatible code for supporting old browser versions that do not support the latest standards
+*Bundler - Packages code into bundles for delivery to the browser. This enables compatibility (for example ES6 module support), or performance (with lazy loading).
+* Minifier - Removes whitespace and renames variables in order to make code smaller and more efficeient to deploy. 
+* Testing Automated tests at multiple levels to ensure correctness.
+* Deployment - Automated packaging and delivery of code from the development environment to the produciton environment. 
