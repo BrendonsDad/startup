@@ -808,6 +808,304 @@ index.html
 
 Notice that we call the sayHello and sayGoodbye JavaScript functions from the HTML in the onclick attribute of the button element. Spectial attributes like onclick autmoatically create event listeners for different DOM events that call the code contained in the attributes value. The code specified by the attribute value can be a simple function or any JavaScript code. 
 
+# Web frameworks
+Web frameworks seek to make the job of writing web applications easier by providing tools for completing common application tasks. This includes things like modularizing code, creating single page applications, simplifying reactivity, and supporting diverse hardware devices.
+
+Some frameworks take things beyond the standard web technologies (HTML, CSS, JavaScript) and create new hybrid file formats that combine things linke HTML and JavaScript into a single file. Examples of this include React JSX, and so on. Abstracting away from the core web files formats put the focus on functional components rather than files
+
+There are lots of web frameworks to choos from and they evale all the time. You can view the latest populatiry poll at StateOfJS
+
+## how to do hello world in React
+
+React combines JavaScript and HTML into its component format. CSS must be declared outside of the JSX file. The component itself leverages the functionatiy of JavaScript and can be represented as a function or class
+
+### JSX
+
+```jsx
+import 'hello.css';
+
+const Hello = () => {
+  let name = 'world';
+
+  return <p>Hello {name}</p>
+}
+```
+
+### CSS 
+
+```css 
+p {
+  color: green;
+}
+```
+
+# REACT INTRODUCTION VIDEO NOTES
+Web Frameworks
+Simplify common patterns
+provide common components
+improve perfromance
+increase device coverage
+
+As far as usage goes, React is definetly the most popularity
+jsx is the react js file.
+
+React was created by Jordan Walke working on facebook
+He deployed it originally on instagram and then they open sourced it so everyone can use it.
+
+The best drug is getting little things done that have been wigheing on you. Instant high.
+
+You want to be a valuable team member. Accomplish something meaningful that helps people out. Feel good about what you do. 
+
+# React
+Reaxt and its associated projects provide a powerful web programming framework. The name React comes from its focus on making reactive web page components.
+
+React was first used for facebooks news feed and then as instagrams mainframe.
+
+React abstracts HTML into a JS varient called JSX. JSX is converted into valid HTML and JavaScript using a preprocessor such as Vite or BAble. For exampole, the following is a JSX file. Notice that it mixes both HTML and JAvaScript into a single representation
+
+```jsx
+const i = 3;
+const list = (
+  <ol class="big">
+    <li>Item {i}</li>
+    <li>Item {3 + 1}</li>
+  </ol>
+);
+```
+
+The preprocessor will convert the JSX into valid JavaScript that looks really complex to a human, but that a browser can render without any problems. 
+
+```js
+cont i = 3;
+const list = React.createElement('ol', {class: 'big' }, React.createElement('li', null 'Item ', i) React.createElement('li', null, 'Item ', 3 + 1));
+```
+
+When the broweser executes the React.createElement JavaScript function it will generate in HTML elements are displayed to the user. When a user interacts with the elements, the JavaScript code will detect that and react to change the HTML elements as defined by the JSX. 
+
+## React Hello World
+The point is to get using React as quickly as possible and then use it as a place where you can explore how a modern web framework works. This includes understanding JavaScript, Node, NPM, and Vite. 
+
+The first step is to set up a project that can convert JSX into JavaScript that the browser can render. After installing Node.js, open your command console and execute the following commands. This will create a directory named reactDemo that is configured to biuild a REact application.
+
+
+Next, you need to create the single HTML file, named index.html, that will contain the entire React application.
+
+### Index
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>React Demo</title>
+  </head>
+  <body>
+    <noscript>You need to enable JAvaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/index.jsx"></script>
+  </body>
+</html>
+```
+
+When the browser loads up the HTML it will execute the JSX code represented by the script tag. That means you need to create a file with the name index.jsx. This simple file renders the JSX returned by the App component function. Of course the JSX element looks a lot like an HTML element, but that is only becuase we haven't fully explored what JSX can do. The magic happens when you connect the HTML div to the React rendering code by telling React to render the App component in place of the root element's contents.
+
+### index.jsx
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+function App() {
+  return <div>Hello React</div>;
+}
+
+const root = ReactDom.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+```
+
+Now you just need to compile the JSX into JavaScript using Vite and have Vite host a hot reloading HTTP server so that you can see the result in the browser. You do this by running a varieant of the NPM command named NPX. NPX will directly execute a Node package without referencing the package.json file. This is really useful for running JavaScript code that is meant to run as a comand line program (CLI) such as Vite
+
+## JSX
+This combines Javascript and HTML into one implementation
+
+We want a componenet that represents one thing
+
+JSX combines the JavaScript and the HTML
+
+Bable comverts JSX into useable JS for the website.
+
+
+# Components
+React componoents allow you to modularsize the functionality of your application. This allows the underlying code to directly represetnt the componnents that a us3er ihnteract with. It also enables code reuse as common application components often show up repeadetly. 
+
+## Rendering JSX
+Ond of the primary purposes of a component is to generate the user interface. This is done with the JSX returned from a component. Whatever is returned, inserted into the component HTML element.
+
+As a siple example, a JSX file containing a React component element named Demo would cause React to load the Demo component, get the JSX returned from the component, and insert the result into the place of the Demo element.
+
+### JSX
+
+```jsx
+<div>
+  Component: <Demo />
+</div>
+
+```
+
+Notice that Demo is not a valid HTML element. The Transpiler will replace this tag with the resulting rendered HTML.
+
+### React Component
+```jsx
+function Demo() {
+  const who = 'world'
+;
+return <b>Hello {who}</b>
+```
+
+### Resulating HTML
+```html
+<div>Component: <b>Hello world></b></div>
+```
+
+To style your components you can use the same rules in your JSX just like you would normally do with HTML. For example, if you had a CSS file named index. css with the following styles:
+
+```css
+div {
+  font-family: sans-serif;
+}
+
+.code {
+  color: green;
+}
+
+```
+
+You could apply the style rules using importing the CSS. The styles will then apply as they would normally with the exception that you need to use className attribute on an element instead of class becuase class is a keyword in JavaScript.
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+function App() {
+  return (
+    <div>
+      <pre className='code'>console.log(1+1);</pre>
+      <p>Simple math</p>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+```
+
+## Child Components
+The JSX that a component returns may reference other components. This allows you to build up a complex tree of interrelated components. Consider the following application that ha sa header with navigational elements, main content, and a footer. The App component is the parent of all the other components
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+function Header() {
+  return (
+    <nav className='app-barr'>
+      <Link label='home' />
+      <Link label='users' />
+      <Link label='about' />
+    </nav>
+  );
+}
+
+function Link(label) {
+  return <div>{label.label}</div>;
+}
+
+function Content() {
+  return <div className='content'>Here is the content</div>;
+}
+
+function Footer() {
+  return <div className='app-bar'>Footer</div>;
+}
+
+function App() {
+  return (
+    <div className='app'>
+      <Header />
+
+      <Content />
+
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+
+```
+
+### index.css
+
+```css
+
+.app {
+  font-family: sans-serif;
+}
+
+.app-barr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+}
+
+.app-bar div {
+  padding: 0.25em;
+}
+
+.content {
+  margin: 1em;
+}
+
+```
+
+## Properties
+React components also allow you to pass information to them in the form of element properties. The cmoponent receives the properties in its constructor and then can display them when it renders.
+
+### JSX
+
+```jsx
+<div>Component: <Demo who="Walke" /></div>
+```
+
+### React component
+```jsx
+function Demo(props) {
+  return <b>Hello {props.who}</b>;
+}
+```
+
+## State
+
+In addition to properties, a component can have internal state. Component state is created by calling the React.useState hook function. The useState function returns a variable that contains the current state and a function to update the state. The following example creates a state variable called when the paragraph text is clicked
+
+```jsx
+function App() {
+  const [clicked, updateClicked] = React.useState(false);
+
+  function onClicked() {
+    updateClicked(!clicked);
+  }
+
+  return <p onClick={onClicked}>clicked: {`${clicked}`}</p>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+```
 
 
 # Router
