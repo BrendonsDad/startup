@@ -4,7 +4,9 @@
   "description": "Startup for my Web Design Class, tentative name: FriendGauge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,8 @@
   "dependencies": {
     "give-me-a-joke": "^0.5.1",
     "react-router-dom": "^7.1.5"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
   }
 }

@@ -1175,3 +1175,87 @@ As web programming becomes more and more complex it became necessary to abstract
 * Minifier - Removes whitespace and renames variables in order to make code smaller and more efficeient to deploy. 
 * Testing Automated tests at multiple levels to ensure correctness.
 * Deployment - Automated packaging and delivery of code from the development environment to the produciton environment. 
+
+# Vite
+Now that we have covered the basics of React, we want to extend our usage to include a full web framework toolchainthat allows us to use JSX, minifiation, polyfills, and bundling for our Simon and startup applications. One common way for configuring your project to take advantage of these technologies is to use a command line interface (CLI) to initially set up a web application. Using a CLI saves you the trouble of configuring the toolchain parameters and gets you quickly started with a default application
+
+For our toolchain we are going to use Vite. Vite bundles your code quickly, has great debugging support and allows you to easily support JSX, TypeScript, and different CSS flavors. To get started with Vite, lets first build a simple web application. Later we will conver simon over to react. 
+
+## Generated project
+Now, lets explore the application files that Vite created. From the console, use VS Code ( code .) to open the project directory and take a look at the files. 
+
+## JSX vs JS
+The Vite CLI uses the .jsx extension for jsx files instead of JavaScript .js extension. The Babel transpiler will work with either one, but some editor tools will work differently based upon the extension. For this reason you should prefer .jsx for files that contain JSX. The developers at AirBNB had an interesting conversation on this topic that you might browse if you would like to consider the differing opinions on this subject. 
+
+## Building a production release
+When you execute npm run dev you are bundling the code to a temporary directory that the Vite debug HTTP server loads from. When you want to bundle you application so that you can deploy to a production enviornment you need to run npm run build. This executes the build script found in your package.json and invokes the Vite CLI. vite build transpiles, minifies, injects the proper JavaScript, and then outputs everthing to a deployment-ready version contained in a distribution subdirectory named dist. 
+
+## Deploying a production release
+
+The deployment script for Simon React (deployReact.sh) creates a production distribution by calling npm run build and then copying the resulting dist directory to your production server. 
+
+Take some time to build a production release by running npm run build. Then examine what Vite actually builds by examining the dist directory. For example, if you look at the dist/assets directory you will see the bundled and minified JavaScript and CSS files. 
+
+# Simon React Part 1: Routing
+There are two phases to get react working, the first is to get html and css into a react component and then set up our react routing. 
+
+First, clone the simon css repository
+
+Well, I followed a long and now have a pretty good grasp of everything. Now I am going to do it for my own code. 
+
+As part of the move to react we convert our assignment into a multip page application. 
+
+1. Phase 1: The first phase will convert the Simon HTML/CSS code into a modern web application using Vite and React. this will introduce routing, modularize code, and remove redundancy. 
+2. Phase 2: The second phase will introduce the JavaScript necessary to make Simon interactive and functionally complete. 
+
+Unlike the work you do in other technologies for Simon, there is not a repository for this phase. Instead you use Simon CSS repository as a starting place. 
+
+## Porting process steps
+
+The process of converting code from one way of doing things to different way is called porting. Porting is a very common software engineering task. Completing this phase will make you more competent with the porting process. 
+
+Porting your application to React will require significant modifications to your frontend code. Make sure you reserve enough time to successfully complete this work. 
+
+Here is the complete list of all the steps involved to convert Simon to a React Application. When you port your startup to React you will want to commit your changes as you complete each step in the process. 
+
+1. Install and configure Vite
+2. Reorganize the code
+3. Convert ot React Bootstrap
+4. Enable React
+5. Create app components
+6. Create view components
+7. Create the router
+8. Convert HTML to React components
+9. Replace deployment script. 
+
+In the next phase of your startup development, we will talk about how to add JavaScript to the application. 
+
+## Install and configure Vite
+
+in the project directory, set up npm and install vite as a development dependency
+
+npm install vite@latest -D
+
+
+add this code to the scripts section of package.json.
+```json
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+```
+
+dev - Bundles a debugging version of the React application and starts Vite's hot reloading HTTP server the hosts the newly bundled application for development purposes. 
+
+build - Bundles a production version of the React application and copies it to the dist directory. 
+
+preview - Bundles a production version of the React application and starts Vite's hot reloading HTTP server. This is used to sest a production version becore deployment. 
+
+## Reorganizing the code
+
+We want to modify our code so it matches what Vite expects. 
+
+Create a public directory that is going to hold all the application image and sound assets. After we create the folder we move the placeholder.jpg and favicon.ico files into it. 
+
+Next we create a src directory where we will put all of the React code. Under the src directory we create a folder for each of the view components that represent the major functionality of the Simon application. 
