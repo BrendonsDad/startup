@@ -1259,3 +1259,33 @@ We want to modify our code so it matches what Vite expects.
 Create a public directory that is going to hold all the application image and sound assets. After we create the folder we move the placeholder.jpg and favicon.ico files into it. 
 
 Next we create a src directory where we will put all of the React code. Under the src directory we create a folder for each of the view components that represent the major functionality of the Simon application. 
+
+## Convert to React Bootstrap
+There is an NPM package called React Bootstrap that wraps the Bootstrap CSS framework in React components. This allows you to treat the Bootstrap widgets, such as Button and Modal as React components instead of just imported CSS and JavaScript. 
+
+## Enabling React
+We now have everything necessary to start using React for the application. To make this happen, we need to install the React components for the basic functionality, Dom manipulation and request routing to display individual components. React is installed by running:
+
+npm install react react-dom react-router-dom
+
+## Index.html and index.jsx
+With React we have a single HTML file that dynamically loads all of the other application components into its DOM using JAvaScript. We rename the existing index.html to login.html, since that is what it really is anyway and create a new index.html that represents the React SPA entry point.
+
+Notice that the div with an ID of root is where all the content will be injected. The script reference for index.jsx causes the injection of the top level component named App. To hook the index.html to our top level App component, we create the following index.jsx file. 
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './src/app';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+```
+
+Note that both the index.html and the index.jsx are located in the root of your project.
+
+## Create App component
+To begin the tranformation to using React components in our application, we create a top-level component, stored in src/app.jsx, and some simple placeholder content that will get replaced later. In order for the styling to showup we import Bootstrap and the top level CSS found in src/app.css
+
+
+
