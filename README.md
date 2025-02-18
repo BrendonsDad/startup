@@ -72,5 +72,10 @@ For this deliverable, I built all the CSS styling of my web application.
 - [X] **Application text content** - Made all the text look better and implemented CSS to have application text appear more in context
 - [X] **Application images** - All nescicary images scaled and positioned, and decorated using CSS.
 
+## React Part 1 Deliverable
+Sorry this is late. Also I know that my CSS is very similar to Simon, I'm still coming up with a design to make it more my own, but for this deliverable, I did do all of the react stuff. 
+- [X] **Bundled using Vite** - Downloaded Vite and deployed it using the sh script.
+- [X] **Multiple React Components** - Components set up containing the mains of all my previous html files. Browsing through the links shows variety and design through the different pages without using new html.
+- [X] **React Router** - Router is installed and working. As you can see, when you click the nave links we are no longer using html. Routes to all my pages set up. 
 
 
