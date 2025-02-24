@@ -1287,5 +1287,49 @@ Note that both the index.html and the index.jsx are located in the root of your 
 ## Create App component
 To begin the tranformation to using React components in our application, we create a top-level component, stored in src/app.jsx, and some simple placeholder content that will get replaced later. In order for the styling to showup we import Bootstrap and the top level CSS found in src/app.css
 
+# JavaScript console
+ The JavaScript console object provides interaction with the JAvaScript runtime's debugger console. This usage of console should not be cnofused with your operating systems console (AKA terminal or command line). The consoleobject provides functionality for outputting the value of text and objects, running timers, and counting iterations. These are useful debugging tools when you can actually execute your code in an interactive debugger 
 
+## Log
+The basic usage of the console object is to output a log message
 
+```jsx
+console.log('hello');
+// OUTPUT: hello
+```
+
+You can create formatted messages in the log parameter.
+
+```jsx
+console.log('hello %s', 'world');
+// OUTPUT: hello world
+```
+
+You can even specify CSS declarations in order to style the log output.
+
+```jsx
+console.log('%c JavaScript Demo', 'font-size:1.5em; color:green;');
+// OUTPUT: JavaScript Demo //in large green text
+```
+
+# JavaScript string
+Strings are a primitive type in JavaScript. A string variable is specified by surrounding a sequence of characters with single quotes ('), double quotes ("), or backticks (`). The meaning of single or double quotes are equivalent, but the back tick defines a string literal that may contain JavaScript that is evaluated in place and concatenated into the string. A string literal replacement specifier is declared with a dollar sign followed by a curly brace pair. Anything insdide the curly braces is evaluated as JavaScript. You can also use backticks to create multiline strings without having to explicty escape the newline character using \n.
+
+```jsx
+'quoted text'; // " also works
+
+const l = 'literal';
+console.log(`string ${l (1+1)} text`);
+// OUTPUT: string literal2 text
+```
+
+## Unicode support
+JavaScript supports Unicode by defining a string as a sequence of 16-bit unsigned intergers that represent UTF-16-encoded characters. Unicode support allows JavaScript to represent most languages spoken on the planet. This includes those that are read form right to left.
+
+However, there are several important steps you must take in order to make your web application fully internationalized. This includes handling of currency, time, dates, iconography, units of meaure, keyboared layouts, and respecing local customs. 
+
+## String functions
+
+The string object has several interesting functions associated with it. Here are someof the commonly used ones. 
+
+** See stringFunctions.jsx**

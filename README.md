@@ -79,3 +79,4 @@ Sorry this is late. Also I know that my CSS is very similar to Simon, I'm still 
 - [X] **React Router** - Router is installed and working. As you can see, when you click the nave links we are no longer using html. Routes to all my pages set up. 
 
 
+## React Part 2 Deliverable
