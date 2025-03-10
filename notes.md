@@ -1333,3 +1333,9 @@ However, there are several important steps you must take in order to make your w
 The string object has several interesting functions associated with it. Here are someof the commonly used ones. 
 
 ** See stringFunctions.jsx**
+
+# JavaScript arrow function
+
+Becuase functions are first order objects in JavaScript they can be declared anywhere and passed as parameters. This results in code with lots of anonymous functions cluttering things up. To make the code more compact the arrow syntax was created. This syntax replaces the need for the function keyword with the symbos => placed after the parameter declaration. The enclosing curly braces are also optional. 
+
+**See 
