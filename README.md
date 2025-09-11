@@ -1,12 +1,12 @@
 # startup
-Startup for my Web Design Class, tentative name: FriendGauge
+Startup for my Web Design Class, tentative name: Friendzie
 
 This markdown file will give several key details about my start up.
 
 ![image](https://github.com/user-attachments/assets/630010b4-45ac-4084-8e8c-523bac9e26b4)
 
 ## Elevator Pitch
-Remember the excietment you felt when you met and hung out with your best friends while growing up? At FriendGauge, we try to capture that feeling. Unlike other social media platforms that try to keep you on them as long as possible, we focuse on helping people with similar interests meet up. Meet people in your area that have a similar taste in music, sports or anything else you could imagine. Invite people to "hang" and form groups. We focus on finding you new friends, and you get to focus on your **real** social life.
+Remember the excietment you felt when you met and hung out with your best friends while growing up? At Friendzie, we try to capture that feeling. Unlike other social media platforms that try to keep you on them as long as possible, we focuse on helping people with similar interests meet up. Meet people in your area that have a similar taste in music, sports or anything else you could imagine. Invite people to "hang" and form groups. We focus on finding you new friends, and you get to focus on your **real** social life.
 
 ![image](https://github.com/user-attachments/assets/d2dba9c4-ad62-48f4-9628-c338298f5c7a)
 (image curtesy of American Behavioral Clinic)
