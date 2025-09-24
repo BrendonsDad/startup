@@ -1449,3 +1449,5 @@ The rendering process of your HTML executes on a single thread. That means that 
 3. rejected - Failed to complete.
 
 We can demonstrate asynchronous execution by using the standard JavaScript setTimeout
+
+# FOR FURTHER NOTES, THE THE FOLDER: NotesOrganized
