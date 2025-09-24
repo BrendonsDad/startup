@@ -1441,3 +1441,11 @@ console.log(JSON.parse(localStorage.getItem('array')));
 ```
 
 
+# Promises
+The rendering process of your HTML executes on a single thread. That means that you cannot take a long time processing JavaScript on the main rendering thread. Long running, or blocking tasks, should be executed with the use of JavaScript Promise. The execution of a promise allows the main rendering thread to continue while some action is executed in the background. You create a promise by calling the Promise object constructor and passing it an executor function that promise constructor may return before the promise executor function runs. The state of the promise execution is always in one of three possible states. 
+
+1. pending - Currently running asynchronously
+2. fulfuilled - Completed successfully
+3. rejected - Failed to complete.
+
+We can demonstrate asynchronous execution by using the standard JavaScript setTimeout
