@@ -55,8 +55,8 @@ Remember the excietment you felt when you met and hung out with your best friend
 # Deliverables
 
 For this deliverable, I did all the things required in the rubric
-- [X] **Proper Use of Markdown** - As you can see, I learned mark down and am using it in this .md file you are currently reading.
-- [X] **Elevator Pitch** - Scroll up to see my elevator pitch, 
-- [X] **Description of Features** - I provided a description of all the necissary features above.
-- [X] **Description of how you will use each technology** - You can see above how I plan to use HTML, CSS, React, Web service, Database and Websocket.
-- [X] **Images** - I properlly imported my rough sketches above. 
+- [X] **Review and Deploy Simon** - Completed as enstructed. Deployed using the deployment script,
+- [X] **Create the HTML** - Made the essential structure for the html, connected the link to my github, 
+- [X] **Other HTML deliverabls** - All content is represented, placeholders for future technology in place, index html file implemented,
+- [X] **Periodic Work** - Multiple pushes to GitHub, notes.md updated and added a new folder to better keep track of my notes. Final version of project pushed to GitHub.
+- [X] **Deployment** - Startup app deployed to production environment. URL in Canvas. 
