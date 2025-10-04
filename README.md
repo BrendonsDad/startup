@@ -55,8 +55,11 @@ Remember the excietment you felt when you met and hung out with your best friend
 # Deliverables
 
 For this deliverable, I did all the things required in the rubric
-- [X] **Review and Deploy Simon** - Completed as enstructed. Deployed using the deployment script,
-- [X] **Create the HTML** - Made the essential structure for the html, connected the link to my github, 
-- [X] **Other HTML deliverabls** - All content is represented, placeholders for future technology in place, index html file implemented,
-- [X] **Periodic Work** - Multiple pushes to GitHub, notes.md updated and added a new folder to better keep track of my notes. Final version of project pushed to GitHub.
-- [X] **Deployment** - Startup app deployed to production environment. URL in Canvas. 
+- [X] **Review and Deploy Simon** - I downloaded simon a while ago, and studied the code. I cloned it into my repository, and you ca n see it for your self. I examined the use of CSS, and I used the live server extensions several times. I also debugged using the browser dev tools many times on simon, my own website, and other websites. I then deployed to my production envioronment using the react sh file we get later on in the semester. 
+- [X] **Create the CSS** - I made the CSS for my deliverable. I might make some more changes, but right now I am pretty happy with it. Name is dispalyed and the GitHub is linked.
+- [X] **Periodically commit and push your code to GitHub** - Made several commits to GitHub. Commited all my notes and commited as I made changes to CSS. I should have made more commits with my code, but I just got in the habit of pushing with the sh file, seeing changes, and then acting on those. I will do better next time.  
+- [X] **Periodically cupdate your startup repository's note.md file** - Took notes on every online chapter/lecture. You can see the notes posted under NotesOrganized.
+- [X] **Deployment startup app to your prod** - Startup app deployed to production environment. URL in Canvas. 
+- [X] **Application is available** - Pushed using the React.sh file. Everythin is online and can be viewed with my link. 
+- [X] **Upload URL** - Check Canvas. 
+
