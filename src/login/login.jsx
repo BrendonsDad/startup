@@ -3,25 +3,42 @@ import React from 'react';
 export function Login() {
   return (
     <main className="container-fluid bg-secondary text-center">
-      <h1>We are glad you are <i>here.</i> We will help you get out <i>there.</i></h1>
+      <h1>We will <i>never</i> sell your personal information. We don't even need your email.</h1>
       <h3>Sign up or log in</h3>
       <div className="form">
         <form method="get" action="discover.html">
+          <h3> Create an Account</h3>
+          <div className="input-group mb-3">
+            <span className="input-group-text">U</span>
+            <input className="form-control"type="text" placeholder="Username" />
+          </div>
           <div className="input-group mb-3">
             <span className="input-group-text">@</span>
-            <input className="form-control"type="text" placeholder="your@email.com" />
+            <input className="form-control"type="text" placeholder="email (optional)" />
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text">🔒</span>
             <input className="form-control" type="password" placeholder="password" />
           </div>
+
+          <button type="submit" className="btn btn-primary redbutton">Create</button>
+          
+        </form>
+
+        <form method="get" action="discover.html">
+          <h3>Login</h3>
           <div className="input-group mb-3">
-              <span className="input-group-text">DOB</span>
-              <input className="form-control" type="date" placeholder="mm/dd/yyyy" />
-            </div>
-          <button type="submit" className="btn btn-primary">Create</button>
-          <p>Already have an Account? Here:</p>
-          <button type="submit" className="btn btn-secondary">Login</button>
+            <span className="input-group-text">U</span>
+            <input className="form-control"type="text" placeholder="Username or Email" />
+          </div>
+          <div className="input-group mb-3">
+            <span className="input-group-text">🔒</span>
+            <input className="form-control" type="password" placeholder="password" />
+          </div>
+
+          <button type="submit" className="btn btn-primary redbutton">Create</button>
+          <p>Forgot password? Click <u>here:</u></p>
+
         </form>
       </div>
     </main>

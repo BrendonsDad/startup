@@ -20,7 +20,7 @@ export default function App() {
                     <nav className="navbar navbar-dark">
                         <a className="navbar-brand" href="#">Freindzie<sup>&reg;</sup></a>
                     </nav>
-                    {/* <div id="picture" className="picture-box"><img src="skull.png" alt="random" /></div> */}
+                    <div><img src="skull.png" alt="random" width="50" height="50"/></div> 
                 </div>
                 <nav>
                     <menu className="navbar-nav">

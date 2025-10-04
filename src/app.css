@@ -38,12 +38,14 @@
     color: #fff;
   }
 
+  
+
 
   .form {
     border: solid #fff;
     border-radius: 10px;
     margin: 15px;
-
+    display: flex;
   }
 
   .form > form {
@@ -106,6 +108,20 @@
     text-align: center;
   }
 
+  .redbutton {
+    background-color: rgb(189, 69, 69);
+    border-color: rgb(189, 69, 69);
+    color: #fff;
+  }
+
+  .redbutton:hover,
+  .redbutton:focus,
+  .redbutton:active {
+    background-color: #772b37;
+    border-color: #772b37;
+    color: #fff;
+  }
+
   menu .nav-link:hover {
     background-color: #a59f9f;
     color: #25282b;
@@ -115,7 +131,7 @@
     float: right;
   }
   
-  @media (max-height: 600px) {
+  @media (max-height: 600) {
     header {
       display: none;
     }
@@ -125,5 +141,12 @@
     main {
       flex: 1 100vh;
     }
+    
   }
-  
+
+  @media (max-width: 800px) {
+    .form {
+      display: flex;
+      flex-direction: column;
+    }
+  }

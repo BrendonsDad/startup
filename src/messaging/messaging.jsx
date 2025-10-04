@@ -8,7 +8,7 @@ export function Messaging() {
             <p>Mellisa</p>
         </div>
         <div className="invite">
-            <button className="btn btn-primary">
+            <button className="btn btn-primary redbutton">
                 <p>Invite to hang</p>
               </button>
         </div>
@@ -16,16 +16,16 @@ export function Messaging() {
             <img className="textExample" src="discordex.PNG" alt="example of texting"/>
         </div> 
         <div className="sharesong ">
-            <button className="btn btn-secondary">
+            <button className="btn btn-secondary redbutton">
                 <p>Share a song</p>
               </button>
         </div>
         <div className="message">
           <form method="get">
               <div className="input-group mb-3">
-                <span className="input-group-text">➡️</span>
+                <span className="input-group-text">⭕</span>
                 <input className="form-control" type="text" placeholder="say hi!" />
-                <button type="submit" className="btn btn-primary">Send</button>
+                <button type="submit" className="btn btn-primary redbutton">Send</button>
               </div>
             </form>
         </div>

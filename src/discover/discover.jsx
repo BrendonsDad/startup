@@ -34,7 +34,7 @@ export function Discover() {
         </div>
 
         <div className="makeGroup">
-            <button className="btn btn-primary">
+            <button className="btn btn-primary redbutton">
                 <p>+ Make a Group</p>
               </button>
         </div>
