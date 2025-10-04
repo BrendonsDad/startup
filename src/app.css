@@ -4,8 +4,43 @@
     min-width: 375px;
   }
 
+  .top-header {
+    padding: 10px;
+    text-align: center;
+    background-color: #212529;
+    color: #fff;
+    align-items: center;
+  }
+
+  .top-header span {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+
+  .LogoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #picture .LogoHeader {
+    height: 50px;
+    width:auto;
+  }
+
+  a:link.top-header {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  a.link {
+    color: #fff;
+  }
+
+
   .form {
-    border: solid darkgray;
+    border: solid #fff;
     border-radius: 10px;
     margin: 15px;
 
@@ -42,14 +77,38 @@
     flex-direction: row !important;
     list-style: none;
   }
+
+  .navbar {
+    padding: 30px;
+  }
   
   .navbar-brand {
-    padding-left: 0.3em;
-    border-bottom: solid rgb(182, 182, 182) thin;
+    border: 2px solid rgb(189, 69, 69);
+    border-radius: 5px;
+    background-color: rgb(189, 69, 69)
+  }
+
+  .navbar-nav {
+    margin: 0 auto;
+    background-color: #212529;
+    display: flex;
+  }
+
+  .my-red-button {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
   }
   
   menu .nav-item {
     padding: 0 0.3em;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  menu .nav-link:hover {
+    background-color: #a59f9f;
+    color: #25282b;
   }
   
   footer a {

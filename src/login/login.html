@@ -7,8 +7,6 @@
     <title>Friendzie HTML</title>
     <link rel="icon" href="favicon.ico" />
 
-    <link rel="stylesheet" href="main.css" />
-
     <!-- Include bootstrap CSS framework -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -17,9 +15,14 @@
       crossorigin="anonymous"
     />
 
+    <link rel="stylesheet" href="main.css" />
+
   </head>
   <body class="bg-dark text-light">
     <!-- Use header, main, and footer elements to give semantic structure -->
+    <div class="top-header">
+      <p>What's Freindzie? <a class="top-header-learn-more" href="index.html">Click Here</a> for more info.</p>
+    </div>
     <header class="container-fluid">
       <!-- Navigation elements -->
       <nav class="navbar fixed-top navbar-dark">
@@ -53,7 +56,7 @@
               <span class="input-group-text">DOB</span>
               <input class="form-control" type="date" placeholder="mm/dd/yyyy" />
             </div>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn my-red-button">Create</button>
           <p>Already have an Account? Here:</p>
           <button type="submit" class="btn btn-secondary">Login</button>
         </form>

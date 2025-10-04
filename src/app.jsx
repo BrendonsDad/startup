@@ -11,18 +11,24 @@ import { About } from './about/about';
 export default function App() {
   return (
     <BrowserRouter>
-        <div className="body bg-dark text-light">
+        <div className="top-header">
+            What's Freindzie? <NavLink className="nav-link active" to="about"> Click Here</NavLink> for more info.
+        </div>
+        <div className="body bg-secondary text-light">
             <header className="container-fluid">
-                <nav className="navbar fixed-top navbar-dark">
-                    <a className="navbar-brand" href="#">Freindzie<sup>&reg;</sup></a>
-
+                <div className="LogoHeader">
+                    <nav className="navbar navbar-dark">
+                        <a className="navbar-brand" href="#">Freindzie<sup>&reg;</sup></a>
+                    </nav>
+                    {/* <div id="picture" className="picture-box"><img src="skull.png" alt="random" /></div> */}
+                </div>
+                <nav>
                     <menu className="navbar-nav">
-                        <li className="nav-item"><NavLink className="nav-link active" to="/">Home</NavLink></li>
+                        <li className="nav-item"><NavLink className="nav-link" to="/">Home</NavLink></li>
                         <li className="nav-item"><NavLink className="nav-link" to="discover">Discover</NavLink></li>
                         <li className="nav-item"><NavLink className="nav-link" to="messaging">Messaging</NavLink></li>
                         <li className="nav-item"><NavLink className="nav-link" to="about">About</NavLink></li>
-                    </menu>
-                </nav>
+                    </menu></nav>
             </header>
 
             <Routes>
