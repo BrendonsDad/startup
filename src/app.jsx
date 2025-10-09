@@ -18,7 +18,8 @@ export default function App() {
             <header className="container-fluid">
                 <div className="LogoHeader">
                     <nav className="navbar navbar-dark">
-                        <a className="navbar-brand" href="#">Freindzie<sup>&reg;</sup></a>
+                        <NavLink className="navbar-brand" to="/">Freindzie<sup>&reg;</sup></NavLink>
+                        {/* <a className="navbar-brand" href="#">Freindzie<sup>&reg;</sup></a> */}
                     </nav>
                     <div><img src="skull.png" alt="random" width="50" height="50"/></div> 
                 </div>

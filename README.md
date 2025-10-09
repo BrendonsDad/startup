@@ -54,12 +54,14 @@ Remember the excietment you felt when you met and hung out with your best friend
 
 # Deliverables
 
-For this deliverable, I did all the things required in the rubric
-- [X] **Review and Deploy Simon** - I downloaded simon a while ago, and studied the code. I cloned it into my repository, and you ca n see it for your self. I examined the use of CSS, and I used the live server extensions several times. I also debugged using the browser dev tools many times on simon, my own website, and other websites. I then deployed to my production envioronment using the react sh file we get later on in the semester. 
-- [X] **Create the CSS** - I made the CSS for my deliverable. I might make some more changes, but right now I am pretty happy with it. Name is dispalyed and the GitHub is linked.
-- [X] **Periodically commit and push your code to GitHub** - Made several commits to GitHub. Commited all my notes and commited as I made changes to CSS. I should have made more commits with my code, but I just got in the habit of pushing with the sh file, seeing changes, and then acting on those. I will do better next time.  
-- [X] **Periodically cupdate your startup repository's note.md file** - Took notes on every online chapter/lecture. You can see the notes posted under NotesOrganized.
-- [X] **Deployment startup app to your prod** - Startup app deployed to production environment. URL in Canvas. 
+For this deliverable, I already previously did this step a long time ago (see commit history)
+- [X] **Port Simon** - I cloned the Simon CSS repository and followed all the instructions for porting Simon to React. I then deployed this to my enviornment using the deployReact.sh script. 
+- [X] **Convert HTML/CSS to use React** - I installed Vite, React and Bootstrap, I reorganized my application so it matches the Vite patterns, I created a react router that displayes stubbed compenents for the main pieces of my application, and I converted my previous HTML files into stubbed compenents. 
+- [X] **Name displayed in the application and link to GitHub Repo** - Self evident, you can see both my name and my GitHub link.
+- [X] **Periodically commit and push code to GitHub** - Agian, completed this step awhile ago. Took notes on every lesson and had several commits. 
+- [X] **Periodiclaly update notes.md** - Like I said, completed several months ago. See notes.md to see my notes on this weeks content. 
+- [X] **Push final version to GitHub** - GitHub is up to date, as of submission.
+- [X] **Deploy your startup application to your production evironment** - This was compoeted successfuly. I can see my website myself. 
 - [X] **Application is available** - Pushed using the React.sh file. Everythin is online and can be viewed with my link. 
 - [X] **Upload URL** - Check Canvas. 
 
