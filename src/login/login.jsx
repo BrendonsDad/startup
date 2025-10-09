@@ -36,7 +36,7 @@ export function Login() {
             <input className="form-control" type="password" placeholder="password" />
           </div>
 
-          <button type="submit" className="btn btn-primary redbutton">Create</button>
+          <button type="submit" className="btn btn-primary redbutton">Login</button>
           <p>Forgot password? Click <u>here:</u></p>
 
         </form>
