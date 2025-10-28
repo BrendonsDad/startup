@@ -1,0 +1,2 @@
+# Toolchains
+The toolchain we use for our react project consists of Github as the code repository, Vite for JSX, TS development and debugging support, ESBuild for converting to ES6 modules and transpiling, rollup for bundling and tree shaking, PostCSS for CSS transpiling, and finlaly simple bash script (deployReact.sh) for deployment. 
