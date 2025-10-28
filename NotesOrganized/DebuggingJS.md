@@ -1,0 +1,3 @@
+# Debugging JavaScript
+
+Your coe will have problems. Learning how to quickly discover, and resolve, bugs will greatly increaswe your value as a web develoer. Additionally, debugging skills can also be used during the development process. By following a pattern of writing a block of code and then stepping through, or debugging, the block, you gain confidence that the block is working as desired before moving on to the next block. 
