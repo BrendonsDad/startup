@@ -9,7 +9,7 @@ export function CreateGroup({ onCreate }) {
         e.preventDefault();
         if (groupName.trim() === '') return;
         onCreate(groupName.trim());
-        navigate('discover'); //go back to discover page
+        navigate('/discover'); //go back to discover page
     };
 
     return (
@@ -26,7 +26,7 @@ export function CreateGroup({ onCreate }) {
                         placeholder="Enter new group name"
                     />
                 </div>
-                <button className="btn btn-primary redbutton" type="submit" disabled={!groupName.trim()}>
+                <button className="btn-secondary redbutton" type="submit" disabled={!groupName.trim()}>
                     Create Group
                 </button>
             </form>

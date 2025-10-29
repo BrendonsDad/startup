@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate} from 'react-router-dom'; // if you ever want to navigate
 import './messaging.css';
+
+
 export function Messaging() {
+  const [inputValue, setInputValue] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  // handle form submit
+  const handleSend = (e) => {
+    e.preventDefault();
+    const trimmed = inputValue.trim();
+    if (!trimmed) return; // ignore empty send
+    // add to messages
+    setMessages(prev => [...prev, trimmed]);
+    setInputValue(''); // clear input
+  }
   return (
     <main className="container-fluid bg-secondary text-center">
         <h1 className="Messaging">Messaging</h1>
@@ -18,17 +33,25 @@ export function Messaging() {
                 <p>Share a song</p>
               </button>
         </div>
+
+        {/* Render the list of messages */}
+        <div className='messagesList sharesong'>
+          {messages.map((msg, index) => (
+            <div key={index} className="messageItem">
+              {msg}
+            </div>
+          ))}
+        </div>
+
         <div className="message">
-          <form method="get">
+          <form onSubmit={handleSend}>
               <div className="input-group mb-3">
                 <span className="input-group-text">⭕</span>
-                <input className="form-control" type="text" placeholder="say hi!" />
+                <input className="form-control" type="text" placeholder="say hi!" value={inputValue} onChange={e => setInputValue(e.target.value)}/>
                 <button type="submit" className="btn btn-primary redbutton">Send</button>
               </div>
             </form>
         </div>
-
-
     </main>
   );
 }

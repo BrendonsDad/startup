@@ -13,6 +13,24 @@ function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
+    const [groups, setGroups] = React.useState(() => {
+        // On initial load, read from LocalStorage (if exists) else default list
+        const saved = localStorage.getItem('groups');
+        return saved ? JSON.parse(saved) : [
+            { name: 'Punk Rock Lovers (Provo)'},
+            { name: 'Intramural Football (Saturdays'},
+            { name: 'Medieval Larping '},
+            { name: 'Orem Baseball'},
+            { name: 'Hiking Club'},
+            { name: 'Sunset Squad'},
+        ];
+    });
+
+    const handleCreateGroup = (name) => {
+        const newGroups = [...groups, { name }];
+        setGroups(newGroups);
+        localStorage.setItem('groups', JSON.stringify(newGroups));
+    };
   return (
     <BrowserRouter>
         <div className="top-header">
@@ -55,13 +73,11 @@ function App() {
                     } 
                     exact 
                 />
-                <Route path='/discover' element={<Discover />} />
+                <Route path='/discover' element={<Discover groups={groups}/>} />
                 <Route path='/messaging' element={<Messaging />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/create-group'element={
-                    <CreateGroup onCreate={(name) => {
-                        // youll pass a function that adds to local storage and sets state
-                    }} />
+                    <CreateGroup onCreate={handleCreateGroup} />
                 }/>
                 <Route path='*' element={<NotFound />} />
             </Routes>
