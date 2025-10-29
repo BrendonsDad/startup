@@ -12,9 +12,7 @@ export function Messaging() {
                 <p>Invite to hang</p>
               </button>
         </div>
-        <div className="textimg">
-            <img className="textExample" src="discordex.PNG" alt="example of texting"/>
-        </div> 
+
         <div className="sharesong ">
             <button className="btn btn-secondary redbutton">
                 <p>Share a song</p>

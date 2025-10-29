@@ -1,7 +1,10 @@
 import React from 'react';
 import './discover.css';
+import { useNavigate } from 'react-router-dom';
 
-export function Discover() {
+export function Discover({ groups, onMakeGroup }) {
+  const navigate = useNavigate();
+
   return (
     <main className="container-fluid bg-secondary text-center">
         <h1>JOIN GROUPS IN YOUR AREA</h1>
@@ -34,9 +37,12 @@ export function Discover() {
         </div>
 
         <div className="makeGroup">
-            <button className="btn btn-primary redbutton">
-                <p>+ Make a Group</p>
-              </button>
+            <button 
+              className="btn btn-primary redbutton"
+              onClick={() => navigate('/create-group')}
+            >
+              <p>+ Make a Group</p>
+            </button>
         </div>
     </main>
   );

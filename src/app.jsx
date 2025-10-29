@@ -1,14 +1,18 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './app.css';
-
 import {BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Messaging } from './messaging/messaging';
 import { Discover } from './discover/discover';
 import { About } from './about/about';
+import { AuthState } from './login/authState'
+import { CreateGroup } from './discover/createGroup';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css';
 
-export default function App() {
+function App() {
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
   return (
     <BrowserRouter>
         <div className="top-header">
@@ -26,17 +30,39 @@ export default function App() {
                 <nav>
                     <menu className="navbar-nav">
                         <li className="nav-item"><NavLink className="nav-link" to="/">Home</NavLink></li>
-                        <li className="nav-item"><NavLink className="nav-link" to="discover">Discover</NavLink></li>
-                        <li className="nav-item"><NavLink className="nav-link" to="messaging">Messaging</NavLink></li>
+                        {authState === AuthState.Authenticated && (
+                            <li className="nav-item"><NavLink className="nav-link" to="discover">Discover</NavLink></li>
+                        )}
+                        {authState === AuthState.Authenticated && (
+                            <li className="nav-item"><NavLink className="nav-link" to="messaging">Messaging</NavLink></li>
+                        )}
                         <li className="nav-item"><NavLink className="nav-link" to="about">About</NavLink></li>
                     </menu></nav>
             </header>
 
             <Routes>
-                <Route path='/' element={<Login />} exact />
+                <Route 
+                    path='/' 
+                    element={
+                        <Login 
+                            userName={userName}
+                            authState={authState}
+                            onAuthChange={(userName, authState) => {
+                                setAuthState(authState);
+                                setUserName(userName);
+                            }}
+                        />
+                    } 
+                    exact 
+                />
                 <Route path='/discover' element={<Discover />} />
                 <Route path='/messaging' element={<Messaging />} />
                 <Route path='/about' element={<About />} />
+                <Route path='/create-group'element={
+                    <CreateGroup onCreate={(name) => {
+                        // youll pass a function that adds to local storage and sets state
+                    }} />
+                }/>
                 <Route path='*' element={<NotFound />} />
             </Routes>
 
@@ -54,3 +80,5 @@ export default function App() {
 function NotFound() {
     return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
   }
+
+export default App;
