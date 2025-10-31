@@ -55,13 +55,8 @@ Remember the excietment you felt when you met and hung out with your best friend
 # Deliverables
 
 For this deliverable, I already previously did this step a long time ago (see commit history)
-- [X] **Port Simon** - I cloned the Simon CSS repository and followed all the instructions for porting Simon to React. I then deployed this to my enviornment using the deployReact.sh script. 
-- [X] **Convert HTML/CSS to use React** - I installed Vite, React and Bootstrap, I reorganized my application so it matches the Vite patterns, I created a react router that displayes stubbed compenents for the main pieces of my application, and I converted my previous HTML files into stubbed compenents. 
-- [X] **Name displayed in the application and link to GitHub Repo** - Self evident, you can see both my name and my GitHub link.
-- [X] **Periodically commit and push code to GitHub** - Agian, completed this step awhile ago. Took notes on every lesson and had several commits. 
-- [X] **Periodiclaly update notes.md** - Like I said, completed several months ago. See notes.md to see my notes on this weeks content. 
-- [X] **Push final version to GitHub** - GitHub is up to date, as of submission.
-- [X] **Deploy your startup application to your production evironment** - This was compoeted successfuly. I can see my website myself. 
-- [X] **Application is available** - Pushed using the React.sh file. Everythin is online and can be viewed with my link. 
-- [X] **Upload URL** - Check Canvas. 
+- [X] **Review and deploy Simon** - I cloned the Simon CSS repository and followed all the instructions, read and took notes on every tutorial, and followed the video. I then deployed Simon to my enviornment using the deployReact.sh script. 
+- [X] **Implement the JavaScript code using the React Framework** - Yes. This was the bulk of my work. I took inspiration from simon on how it handeled loging in, but made some personal preference changes for my website. I made it possible for users to add new groups in discover. Doing this required me to make another jsx file called createGroup.jsx. I utilized Reacts useState and other component properties to make my website reactive. I also implemented a mock version of my messaging that displays to the screen the messages. I did not find myself needing to use useEffect, but everything that I originally planned for my website functionality is completed or mocked up, waiting for use of a future deliverable. JavaScript does change what is rendered bassed on current state and user input. 
+- [X] **Deliverables 3 through 9** - Self evident, you can see both my name and my GitHub link, commit history is available, notes added, final version pushed to GitHub, deployment script used. 
+
 
