@@ -16,6 +16,11 @@ export function Messaging() {
     setMessages(prev => [...prev, trimmed]);
     setInputValue(''); // clear input
   }
+  const handleHangout = (e) => {
+    e.preventDefault();
+    alert("Hangout invitation sent!");
+  }
+
   return (
     <main className="container-fluid bg-secondary text-center">
         <h1 className="Messaging">Messaging</h1>
@@ -23,14 +28,8 @@ export function Messaging() {
             <p>Mellisa</p>
         </div>
         <div className="invite">
-            <button className="btn btn-primary redbutton">
+            <button onClick={handleHangout} className="btn btn-primary redbutton">
                 <p>Invite to hang</p>
-              </button>
-        </div>
-
-        <div className="sharesong ">
-            <button className="btn btn-secondary redbutton">
-                <p>Share a song</p>
               </button>
         </div>
 
