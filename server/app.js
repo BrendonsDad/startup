@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 function sendEmail({ recipient_email, OTP}) {
     return new Promise((resolve, reject) => {
         var transporter = nodemailer.createTransport({
-            sercive: "gmail",
+            service: "gmail",
             auth: {
                 user: process.env.MY_EMAIL,
                 pass: process.env.MY_PASSWORD

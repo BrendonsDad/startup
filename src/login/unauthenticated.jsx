@@ -1,21 +1,25 @@
 import React from 'react';
+import { RecoveryContext } from "../app";
 
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from './messageDialog';
 
-export function Unauthenticated(props) {
-    const [userName, setUserName] = React.useState(props.userName);
+export function Unauthenticated({ initialUserName, onLogin, navigateToOtp }) {
+    const [userName, setUserName] = React.useState(initialUserName);
     const [password, setPassword] = React.useState('');
     const [displayError, setDisplayError] = React.useState(null);
 
+    // For password recovery
+    const {setEmail, email, setOTP } = React.useContext(RecoveryContext);
+
     async function loginUser() {
         localStorage.setItem('userName', userName);
-        props.onLogin(userName);
+        onLogin(userName);
     }
 
     async function createUser() {
         localStorage.setItem('userName', userName);
-        props.onLogin(userName)
+        onLogin(userName)
     }
 
     return (
@@ -31,7 +35,7 @@ export function Unauthenticated(props) {
                 </div>
                 <div className="input-group mb-3">
                     <span className="input-group-text">@</span>
-                    <input className="form-control"type="text" placeholder="email (optional)" />
+                    <input className="form-control"type="text" onChange={(e) => setEmail(e.target.value)} placeholder="email (optional)" />
                 </div>
                 <div className="input-group mb-3">
                     <span className="input-group-text">🔒</span>
@@ -58,7 +62,18 @@ export function Unauthenticated(props) {
                 <Button variant="secondary" className="btn btn-primary redbutton" onClick={() => loginUser()} disabled={!userName || !password}>
                     Login
                 </Button>
-                <p>Forgot password? Click <u>here:</u></p>
+                <p>
+                    Forgot password? Click <a
+                                              href=""
+                                              className="text-reset"
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                navigateToOtp()
+                                              }}
+                                              >
+                                                <u>here:</u>
+                                            </a>
+                </p>
 
                 </form>
             </div>
