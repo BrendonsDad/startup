@@ -1,0 +1,8 @@
+# Ports
+When you connect to a device on the internet you need both an IP address and a numbrered port number. Port numbers allow a single device to support multiple protocols (http, https, ftp, or ssh) as well as different types of services. 
+The ports may be exposeed externally, or they may only be used internally on the device. 
+The internet governing body, IANA, defines the standard usage for port numbers. Ports 0-123 represent standard protocols. Generally a web service should avoid these ports unless it is provideing the protocol representd by the standard. orts from 1024 to 49151 represent ports that have been assigned to requesitng entitites. 
+
+## Your Ports 
+As an example of how ports are used we can look at your web server. When you built your web server you externally exposed port 22 so that you could use ssh to open a remote console on the server, port 443 for secure http communication and port 8- for unsecure http communication. 
+Your web service, Caddy, is listening on ports 8- and 443. When Caddy gets a request on port 80, it automatically redirects the request ot port 443 so that a secure connection is used. When caddy gets a request on port 443 it examins the path provided by http request (as defined by the URL) and if the path matches a static file, it reads the file off disk and return sit. If the Http path mathes one of the definitions it has ajgateway service, caddy makes a connection on that services port (e.g. 3000 or 4000) and passes the request to the service. 
