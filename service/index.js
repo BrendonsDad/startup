@@ -100,11 +100,11 @@ app.get("/", (req, res) => {
     console.log(process.env.MY_EMAIL);
 });
 
-app.post("/send_recovery_email", (req, res) => {
-    sendEmail(req.body)
-        .then((response) => res.send(response.message))
-        .catch((error) => res.status(500).send(error.message));
-});
+// app.post("/send_recovery_email", (req, res) => {
+//     sendEmail(req.body)
+//         .then((response) => res.send(response.message))
+//         .catch((error) => res.status(500).send(error.message));
+// });
 
 
 
@@ -113,17 +113,56 @@ app.post("/send_recovery_email", (req, res) => {
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
+apiRouter.post("/auth/send_recovery_email", (req, res) => {
+    sendEmail(req.body)
+        .then((response) => res.send(response.message))
+        .catch((error) => res.status(500).send(error.message));
+
+});
+
+
 // CreateAuth a new user
-apiRouter.post('/auth/create', async (req, res) => {
-    if (await findeUser('email', req.body.email)) {
+apiRouter.
+post('/auth/create', async (req, res) => {
+    if (await findUser('email', req.body.email)) {
         res.status(409).send({ msg: 'Existing user' });
     } else {
-        const user = await createUser(req.body.email, req.body.passowrd);
+        const user = await createUser(req.body.email, req.body.password);
 
-        setAuthCookie(res, user.token);
+        setAuthCookies(res, user.token);
         res.send({ email: user.email });
     }
 });
+
+
+// Update Password
+apiRouter.post('/auth/update_password', async (req, res) => {
+    const user = await findUser('email', req.body.email);
+
+    if (!user) {
+        console.error("User not found for email:", req.body.email);
+        res.status(404).send({ msg: 'User not found' });
+        return;
+    }
+
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
+    user.password = passwordHash;
+    user.token = uuid.v4();
+    setAuthCookies(res, user.token);
+    res.status(200).send({ msg: 'Password updated' });
+
+});
+
+// Verify Email
+apiRouter.post('/auth/verify_email', async (req, res) => {
+    const user = await findUser('email', req.body.email);
+    if (user) {
+        res.status(200).send({ msg: 'Email exists' });
+    } else {
+        res.status(404).send({ msg: 'Email not found' });
+    }
+})
+
 
 // GetAuth login an existing user
 apiRouter.post('/auth/login', async (req, res) => {
@@ -131,7 +170,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
             user.token = uuid.v4();
-            setAuthCookie(res, user.token);
+            setAuthCookies(res, user.token);
             res.send({ email: user.email });
             return;
         }
@@ -181,7 +220,7 @@ app.use((_req, res) => {
 });
 
 // updateGroups considers a new group for inclusion. 
-function updateScores(newGroup) {
+function updateGroups(newGroup) {
     // add more logic here if i want 
     groups.push(newGroup)
 
@@ -201,7 +240,7 @@ async function createUser(email, password) {
     return user;
 }
 
-async function findIser(field, value) {
+async function findUser(field, value) {
     if (!value) return null;
 
     return users.find((u) => u[field] === value);

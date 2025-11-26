@@ -11,14 +11,29 @@ export function Login({ userName, authState, onAuthChange }) {
   const navigate = useNavigate();
   const { setEmail, email, setOTP } = React.useContext(RecoveryContext);
 
-  function navigateToOtp() {
+
+  async function navigateToOtp() {
     if (email) {
       const OTP = Math.floor(Math.random() * 900000) + 100000;
       console.log(`OTP for ${email} is ${OTP}`);
       setOTP(OTP);
 
+      // check to see if email exists in database
+      const response = await fetch('/api/auth/verify_email', {
+        method: 'post', 
+        body: JSON.stringify({email: email}),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        }, 
+      });
+
+      if (response?.status !== 200) {
+        const body = await response.json();
+        return alert(`⚠ Error: ${body.msg}`);
+      }
+
       axios
-        .post("http://localhost:4000/send_recovery_email", {
+        .post("/api/auth/send_recovery_email", {
           OTP,
           recipient_email: email,
         })

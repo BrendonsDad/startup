@@ -25,34 +25,76 @@ function App() {
     const [ email, setEmail ] = React.useState();
     const [ otp, setOTP ] = React.useState();
 
-    // function NavigateComponents() {
-    //     if (page === "login") return <Login setPage={setPage}/>;
-    //     if (page === "otp") return <OTPInput email={email} setOTP={setOTP} setPage={setPage} />;
-    //     if (page === "reset") return <Reset email={email} otp={otp} setPage={setPage} />;
-    //     return <Recovered />;
-    // }
+    // Initialize groups as an empty array, state will be populated by server
+    const [groups, setGroups] = React.useState([]);
 
-    const [groups, setGroups] = React.useState(() => {
-        // On initial load, read from LocalStorage (if exists) else default list
-        const saved = localStorage.getItem('groups');
-        return saved ? JSON.parse(saved) : [
-            { name: 'Punk Rock Lovers (Provo)'},
-            { name: 'Intramural Football (Saturdays'},
-            { name: 'Medieval Larping '},
-            { name: 'Orem Baseball'},
-            { name: 'Hiking Club'},
-            { name: 'Sunset Squad'},
-        ];
-    });
+    // Function to fetch groups from the server
+    const fetchGroups = async () => {
+        if (authState === AuthState.Authenticated) {
+            try {
+                // Use fetch to get groups from the API endpoint
+                const response = await fetch('/api/groups');
+                if (response.ok) {
+                    const data = await response.json();
+                    setGroups(data);
+                } else {
+                    console.error('Failed to fetch groups:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching groups:', error);
+            }
+        }
+    };
+
+    // Use useEffect to fetch groups whenever the auth state changes
+    React.useEffect(() => {
+        fetchGroups();
+    }, [authState]); // Dependency array: runs when authState changes
+
+    // Function to handle creation of a new group on the server
+    const handleCreateGroup = async (name) => {
+        try {
+            const response = await fetch('/api/group', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name }), // Send only the name
+            });
+
+            if (response.ok) {
+                // Get the updated list of groups from the server response
+                const updatedGroups = await response.json();
+                setGroups(updatedGroups);
+            } else {
+                console.error('Failed to create group:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error creating group:', error);
+        }
+    };
+
+
+    // const [groups, setGroups] = React.useState(() => {
+
+    //     // On initial load, read from LocalStorage (if exists) else default list
+    //     const saved = localStorage.getItem('groups');
+    //     return saved ? JSON.parse(saved) : [
+    //         { name: 'Punk Rock Lovers (Provo)'},
+    //         { name: 'Intramural Football (Saturdays'},
+    //         { name: 'Medieval Larping '},
+    //         { name: 'Orem Baseball'},
+    //         { name: 'Hiking Club'},
+    //         { name: 'Sunset Squad'},
+    //     ];
+    // });
 
     // how can I add more statess to app.jsx, such as my OTPInput.jsx state, my recovered.jsx state, and a reset.jsx state. (these can be found in src/login)
 
-    // Function to handle creation of a new group
-    const handleCreateGroup = (name) => {
-        const newGroups = [...groups, { name }];
-        setGroups(newGroups);
-        localStorage.setItem('groups', JSON.stringify(newGroups));
-    };
+    // // Function to handle creation of a new group
+    // const handleCreateGroup = (name) => {
+    //     const newGroups = [...groups, { name }];
+    //     setGroups(newGroups);
+    //     localStorage.setItem('groups', JSON.stringify(newGroups));
+    // };
 
     const onAuthChange = (userName, authState) => {
         setUserName(userName);

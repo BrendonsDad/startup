@@ -4,8 +4,8 @@ import { RecoveryContext } from "../app";
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from './messageDialog';
 
-export function Unauthenticated({ initialUserName, onLogin, navigateToOtp }) {
-    const [userName, setUserName] = React.useState(initialUserName);
+export function Unauthenticated(props) {
+    const [userName, setUserName] = React.useState(props.userName);
     const [password, setPassword] = React.useState('');
     const [displayError, setDisplayError] = React.useState(null);
 
@@ -13,33 +13,49 @@ export function Unauthenticated({ initialUserName, onLogin, navigateToOtp }) {
     const {setEmail, email, setOTP } = React.useContext(RecoveryContext);
 
     async function loginUser() {
-        localStorage.setItem('userName', userName);
-        onLogin(userName);
+        loginOrCreate('/api/auth/login');
     }
 
     async function createUser() {
-        localStorage.setItem('userName', userName);
-        onLogin(userName)
+        loginOrCreate('/api/auth/create');
+    }
+
+    async function loginOrCreate(endpoint) {
+        const response = await fetch(endpoint, {
+            method: 'post',
+            body: JSON.stringify({ email: userName, password: password }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }, 
+        })
+        if (response?.status === 200) {
+            localStorage.setItem('userName', userName);
+            props.onLogin(userName);
+        } else {
+            const body = await response.json();
+            setDisplayError(`⚠ Error: ${body.msg}`);
+        }
+    }
+
+    const handleInputChange = (e) => {
+        setEmail(e.target.value);
+        setUserName(e.target.value);
     }
 
     return (
         <>
-            <h1>We will <i>never</i> sell your personal information. We don't even need your email.</h1>
+            <h1>We will <i>never</i> sell or share your personal information.</h1>
             <h3>Sign up or log in</h3>
             <div className="form">
                 <form method="get" action="discover.html">
                 <h3> Create an Account</h3>
                 <div className="input-group mb-3">
-                    <span className="input-group-text">U</span>
-                    <input className="form-control"type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username" />
-                </div>
-                <div className="input-group mb-3">
                     <span className="input-group-text">@</span>
-                    <input className="form-control"type="text" onChange={(e) => setEmail(e.target.value)} placeholder="email (optional)" />
+                    <input className="form-control"type="text" onChange={handleInputChange} placeholder="Email" />
                 </div>
                 <div className="input-group mb-3">
                     <span className="input-group-text">🔒</span>
-                    <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+                    <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                 </div>
 
                 <Button variant="secondary" className="btn btn-primary redbutton" onClick={() => createUser()} disabled={!userName || !password}>
@@ -52,11 +68,11 @@ export function Unauthenticated({ initialUserName, onLogin, navigateToOtp }) {
                 <h3>Login</h3>
                 <div className="input-group mb-3">
                     <span className="input-group-text">U</span>
-                    <input className="form-control"type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username or Email" />
+                    <input className="form-control"type="text" onChange={handleInputChange} placeholder="Email" />
                 </div>
                 <div className="input-group mb-3">
                     <span className="input-group-text">🔒</span>
-                    <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+                    <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                 </div>
 
                 <Button variant="secondary" className="btn btn-primary redbutton" onClick={() => loginUser()} disabled={!userName || !password}>
@@ -68,7 +84,7 @@ export function Unauthenticated({ initialUserName, onLogin, navigateToOtp }) {
                                               className="text-reset"
                                               onClick={(e) => {
                                                 e.preventDefault();
-                                                navigateToOtp()
+                                                props.navigateToOtp()
                                               }}
                                               >
                                                 <u>here:</u>

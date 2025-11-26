@@ -9,6 +9,7 @@ export function Reset() {
   // Get email and onAuthChange from the context
   const { email, onAuthChange } = React.useContext(RecoveryContext);
 
+  const [userName, setUserName] = React.useState(email);
   const [ password, setPassword ] = useState("");
   const [ confirmPassword, setConfirmPassword ] = useState("");
 
@@ -16,6 +17,20 @@ export function Reset() {
     // 1. Basic validation (optional, improve as needed)
     if (password !== confirmPassword) {
       alert("Passwords do not match. Please try again.");
+      return;
+    }
+
+    const response = await fetch('/api/auth/update_password', {
+      method: 'post',
+      body: JSON.stringify({ email, password }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      }, 
+    })
+
+    if (response?.status !== 200) {
+      const body = await response.json();
+      alert(`⚠ Error: ${body.msg}`);
       return;
     }
     // 2. Here you would typically send the new password to your backend server
