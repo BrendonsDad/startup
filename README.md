@@ -52,7 +52,7 @@ Remember the excietment you felt when you met and hung out with your best friend
 ![image2 (1)](https://github.com/user-attachments/assets/f6c69ec5-434e-4244-b021-57ad011b6d94)
 
 
-# Service deliverable
+## Service deliverable
 - [X] **Node.js/ExpressHTTP service** - I installed Express with npm. Startup is on port 4000.
 - [X] **Static middleware for frontend** - Simple endponts added in service/index.js
 - [X] **Calls to third party endpoints** - Like simon, I added calls to quote.cs260.click and calls to get a random image just for fun becuase it is the about page and I wanted to play with safe APIs. After that, I branched out a bit to make this my own, and used a third party API that actually sends an automated email to your email for password reset functionality. This took the brunt of my time becuase i was getting several errors. There was a lot of moving parts, but it felt really good to finally get it working. Sadly, you will not be able to see this working, becuase then I would have to share my .env file which contains variable for the email password that i use to send the automated emails, and sharing this is an obvious security problem. I can show this in person though, and I look forward to putting this on a persistent server that can do this for everyone. 
@@ -60,3 +60,6 @@ Remember the excietment you felt when you met and hung out with your best friend
 - [X] **Frontend calls service endpoints** - Replaced mocked funtionality like calls to localstorage to legitimate calls to my server. 
 - [X] **Supports registration, login, logout, and restricted endpoint** - Fully supports all of these. I tested and walked through them, including functionality to reset the password. 
 
+## DB/Login deliverable
+- [X] **Stores data in MongoDB** - Stored the data for my groups, so that the discover page works. 
+- [X] **Stores credentials in MongoDB** - Users and Auth stored in MongoDB persistently from service/database.js. I am not pushing up my config file for security purposes, but it is connected to mongo and working. 
