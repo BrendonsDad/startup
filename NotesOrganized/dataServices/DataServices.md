@@ -54,3 +54,11 @@ In order to accomplish this do the following
 ```
 
 make sure you include dbconfig.json in your .gitignore file so that it does not get pushed up to github. 
+
+
+
+
+
+
+
+
