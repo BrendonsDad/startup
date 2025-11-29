@@ -5,13 +5,10 @@ const uuid = require('uuid');
 const nodemailer = require("nodemailer");
 const cors = require("cors");
 const app = express();
+const DB = require('./database.js');
 
 
 const authCookieName = 'token';
-
-// The scores and users are saved in memory and disappear whenever the service is restarted.
-let users = [];
-let groups = [];
 
 // The service port. In production the front-end code is statically hosted by the service on the same port. 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -148,6 +145,7 @@ apiRouter.post('/auth/update_password', async (req, res) => {
     const passwordHash = await bcrypt.hash(req.body.password, 10);
     user.password = passwordHash;
     user.token = uuid.v4();
+    await DB.updateUser(user);
     setAuthCookies(res, user.token);
     res.status(200).send({ msg: 'Password updated' });
 
@@ -170,12 +168,13 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
             user.token = uuid.v4();
+            await DB.updateUser(user);
             setAuthCookies(res, user.token);
             res.send({ email: user.email });
             return;
         }
     }
-    res.status(401).send({ msg: 'Unauthorized' });
+    res.status(401).send({ msg: 'Invalid Credentials' });
 });
 
 // DeleteAuth logout a user
@@ -183,6 +182,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
         delete user.token;
+        DB.updateUser(user);
     }
     res.clearCookie(authCookieName);
     res.status(204).end();
@@ -199,13 +199,14 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetGroups
-apiRouter.get('/groups', verifyAuth, (_req, res) => {
+apiRouter.get('/groups', verifyAuth, async (req, res) => {
+    const groups = await DB.getGroups();
     res.send(groups);
 });
 
 // AddGroup
-apiRouter.post('/group', verifyAuth, (req, res) => {
-    groups = updateGroups(req.body);
+apiRouter.post('/group', verifyAuth, async (req, res) => {
+    const groups = await updateGroups(req.body);
     res.send(groups);
 });
 
@@ -220,11 +221,11 @@ app.use((_req, res) => {
 });
 
 // updateGroups considers a new group for inclusion. 
-function updateGroups(newGroup) {
+async function updateGroups(newGroup) {
     // add more logic here if i want 
-    groups.push(newGroup)
+    await DB.addGroup(newGroup);
 
-    return groups;
+    return DB.getGroups();
 }
 
 async function createUser(email, password) {
@@ -235,7 +236,7 @@ async function createUser(email, password) {
         password: passwordHash,
         token: uuid.v4(),
     };
-    users.push(user);
+    await DB.addUser(user);
 
     return user;
 }
@@ -243,7 +244,10 @@ async function createUser(email, password) {
 async function findUser(field, value) {
     if (!value) return null;
 
-    return users.find((u) => u[field] === value);
+    if (field === 'token') {
+        return DB.getUserByToken(value);
+    }
+    return DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response
