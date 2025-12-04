@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { Login } from './login/login';
 import { Messaging } from './messaging/messaging';
+import MessagingGeneric from './messaging/messagingGeneric';
 import { Discover } from './discover/discover';
 import { GroupDetail } from './discover/groupDetail';
 import { About } from './about/about';
@@ -138,7 +139,8 @@ function App() {
                         />
                     } 
                 />
-                <Route path='/messaging' element={<Messaging />} />
+                <Route path='/messaging' element={<MessagingGeneric />} />
+                <Route path='/messaging/:targetUserName' element={<Messaging />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/create-group'element={
                     <CreateGroup onCreate={handleCreateGroup} />

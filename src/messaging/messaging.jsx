@@ -1,11 +1,31 @@
-import React, { useState } from 'react';
-import { useNavigate} from 'react-router-dom'; // if you ever want to navigate
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { DMChatClient } from '../discover/DMChatClient';
 import './messaging.css';
 
 
 export function Messaging() {
+  const { targetUserName } = useParams();
+  const location = useLocation();
+  const currentUserName = location.state?.currentUser || 'Guest';
   const [inputValue, setInputValue] = useState('');
   const [messages, setMessages] = useState([]);
+
+  const dmWebSocketRef = useRef(null);
+
+  useEffect(() => {
+    dmWebSocketRef.current = new DMChatClient(currentUserName, targetUserName);
+
+    const handleNewMessage = (fromUser, msg) => {
+      setMessages(prev => [...prev, { from: fromUser, text: msg }]);
+    };
+
+    dmWebSocketRef.current.addObserver(handleNewMessage);
+
+    return () => {
+      dmWebSocketRef.current.removeObserver(handleNewMessage);
+    };
+  }, [currentUserName, targetUserName]);
 
   // handle form submit
   const handleSend = (e) => {
@@ -13,8 +33,16 @@ export function Messaging() {
     const trimmed = inputValue.trim();
     if (!trimmed) return; // ignore empty send
     // add to messages
-    setMessages(prev => [...prev, trimmed]);
-    setInputValue(''); // clear input
+
+    // Send the message via WebSocket
+    if (dmWebSocketRef.current && dmWebSocketRef.current.connected) {
+      dmWebSocketRef.current.sendMessage(targetUserName, trimmed);
+      setMessages(prev => [...prev, { from: 'Me', text: trimmed }]);
+      setInputValue(''); // clear input
+    } else {
+      console.error('WebSocket is not connected.');
+    }
+    
   }
   const handleHangout = (e) => {
     e.preventDefault();
@@ -23,21 +51,21 @@ export function Messaging() {
 
   return (
     <main className="container-fluid bg-secondary text-center">
-        <h1 className="Messaging">Messaging</h1>
-        <div className="friend">
+        <h1 className="Messaging">Chatting with {targetUserName}</h1>
+        {/* <div className="friend">
             <p>Mellisa</p>
         </div>
         <div className="invite">
             <button onClick={handleHangout} className="btn btn-primary redbutton">
                 <p>Invite to hang</p>
               </button>
-        </div>
+        </div> */}
 
         {/* Render the list of messages */}
         <div className='messagesList sharesong'>
           {messages.map((msg, index) => (
-            <div key={index} className="messageItem">
-              {msg}
+            <div key={index} className={`messageItem ${msg.from === 'Me' ? 'myMessage' : 'theirMessage'}`}>
+              <strong>{msg.from}:</strong> {msg.text}
             </div>
           ))}
         </div>

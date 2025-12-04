@@ -7,10 +7,77 @@ export function GroupDetail() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [usersInGroup, setUsersInGroup] = React.useState(location.state?.users || []);
+    const [usersInGroup, setUsersInGroup] = React.useState([]);
     const [currentUserName, setCurrentUserName] = React.useState(location.state?.currentUser || 'Guest'); 
 
     const webSocket = React.useMemo(() => new ChatClient(groupId), [groupId]);
+
+    const navigatingToMessagingRef = React.useRef(false);
+
+    React.useEffect(() => {
+        if (webSocket.connected) {
+            webSocket.registerUser(currentUserName);
+        } else {
+            // If not connected yet, wait for connection
+            const checkConnection = setInterval(() => {
+                if (webSocket.connected) {
+                    webSocket.registerUser(currentUserName);
+                    clearInterval(checkConnection);
+                }
+            }, 100);
+            return () => clearInterval(checkConnection);
+        }
+    }, [webSocket, currentUserName]);
+
+    // Subscribe to initial user list
+    React.useEffect(() => {
+        const handleUserList = (users) => {
+            setUsersInGroup(prev => {
+                const allUsers = [...users];
+                if (!allUsers.includes(currentUserName)) {
+                    allUsers.push(currentUserName);
+                }
+                return allUsers;
+            });
+        };
+
+        webSocket.addUserListObserver(handleUserList);
+
+        return () => {
+            webSocket.removeUserListObserver(handleUserList);
+        };
+    }, [webSocket, currentUserName]);
+
+
+    React.useEffect(() => {
+        const handlePresenceChange = (data) => {
+            if (data.event === 'joined') {
+                // Add user if not already in list
+                setUsersInGroup(prev => 
+                    prev.includes(data.user) ? prev : [...prev, data.user]
+                );
+            } else if (data.event === 'left') {
+                // Remove user from list
+                setUsersInGroup(prev => prev.filter(user => user !== data.user));
+            }
+        };
+
+        webSocket.addPresenceObserver(handlePresenceChange);
+
+        return () => {
+            webSocket.removePresenceObserver(handlePresenceChange);
+        };
+    }, [webSocket]);
+
+    const handleUserClick = (targetUserName) => {
+        console.log('User clicked:', targetUserName);
+
+        navigatingToMessagingRef.current = true;
+
+        navigate(`/messaging/${targetUserName}`, {
+            state: { currentUser: currentUserName }
+        });
+    };
 
     const handleBack = async () => {
         try {
@@ -22,6 +89,10 @@ export function GroupDetail() {
 
             if (response.ok) {
                 console.log(`User ${currentUserName} removed from group ${groupId}`)
+
+                if (webSocket && typeof webSocket.close === 'function') {
+                    try { webSocket.close(); } catch(e) { console.warn('Error closing websocket', e); }
+                }
                 navigate('/discover');
             } else {
                 console.error('Failed to leave group:', response.statusText);
@@ -33,13 +104,27 @@ export function GroupDetail() {
         }
     };
 
+
+    React.useEffect(() => {
+        return () => {
+            if (navigatingToMessagingRef.current) {
+
+                navigatingToMessagingRef.current = false;
+                return;
+            }
+            if (webSocket && typeof webSocket.close === 'function') {
+                try { webSocket.close(); } catch (e) { console.warn('Error closing websocket on unmount', e); }
+            }
+        };
+    }, [webSocket]);
+
     function Message({ name, webSocket }) {
         const [message, setMessage] = React.useState('');
 
         const disabled = name === '' || !webSocket.connected;
         
 
-        // Add these logs
+        //testing
         console.log(`Input disabled status: ${disabled}`);
         console.log(`Is name empty? ${name === ''}`);
         console.log(`Is WebSocket connected? ${webSocket.connected}`);
@@ -109,7 +194,23 @@ export function GroupDetail() {
                 {usersInGroup.length > 0 ? (
                     <ul>
                         {usersInGroup.map((user, index) => (
-                            <li key={index}>{user}</li>
+                            // Only make the user clickable if it is not the current user
+                            user !== currentUserName ? (
+                                <li key={index}>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleUserClick(user)}
+                                        className="btn btn-link"
+                                        style={{ padding: 0, border: 'none', background: 'transparent', cursor: 'pointer', textDecoration: 'underline' }}
+                                    >
+                                        {user}
+                                    </button>
+                                </li>
+                            ) : (
+                                <li key={index}>
+                                    {user} (You)
+                                </li>
+                            )
                         ))}
                     </ul>
                 ) : (

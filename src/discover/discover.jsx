@@ -7,23 +7,7 @@ export function Discover(props) {
   const navigate = useNavigate();
 
   const handleCardClick = async (groupId) => {
-    try {
-      const response = await fetch('/api/group/group_adduser', {
-        method: 'put',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({ username: userName, group: groupId})
-      });
-
-      if (response.ok) {
-        const usersList = await response.json();
-
-        navigate(`/groups/${groupId}`, { state: { users: usersList, currentUser: userName } });
-      } else {
-        console.error('Failed to join group:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Network error while joining group:', error);
-    }
+    navigate(`/groups/${groupId}`, { state: { currentUser: userName } });
   };
 
   return (
@@ -39,7 +23,6 @@ export function Discover(props) {
               style={{ cursor: 'pointer'}}
             >
               <h4>{grp.name}</h4>
-              {/* You can add more group details here if needed */}
             </div>
           ))}
         </div>
