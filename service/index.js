@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 
 const authCookieName = 'token';
@@ -188,6 +189,32 @@ apiRouter.delete('/auth/logout', async (req, res) => {
     res.status(204).end();
 });
 
+//Delete user from active users list in a group
+apiRouter.delete('/group/group_removeuser', async (req, res) => {
+    try {
+        const groupId = req.body.group;
+        const userName = req.body.username;
+
+        // Call the DB function to remove the user from the group list
+        const dbResult = await DB.removeUserFromGroup(groupId, userName);
+
+        if (dbResult.matchedCount === 0) {
+            return res.status(404).json({ message: "Group not found" });
+        }
+
+        if (dbResult.modifiedCount === 0) {
+            // This might mean the group was found, but the user wasnt in the list
+            return res.status(404).json({ message: "User not found in this group" });
+        }
+
+        // successful deletion from group
+        res.status(204).end();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 // Middle ware to verify that the user is authorized to call an endpoint
 const verifyAuth = async (req, res, next) => {
     const user = await findUser('token', req.cookies[authCookieName]);
@@ -208,6 +235,31 @@ apiRouter.get('/groups', verifyAuth, async (req, res) => {
 apiRouter.post('/group', verifyAuth, async (req, res) => {
     const groups = await updateGroups(req.body);
     res.send(groups);
+});
+
+// Add user to group
+apiRouter.put('/group/group_adduser', verifyAuth, async (req, res) => {
+    const groupName = req.body.group;
+    const newUser = req.body.username;
+    
+    try {
+        const success = await DB.AddUserToGroup(groupName, newUser);
+
+        if (success) {
+            const usersList = await DB.getGroupUsers(groupName);
+            if ( usersList) {
+                res.status(200).send(usersList);
+            } else {
+                res.status(404).send({ message: "Group users not found after update."});
+            }
+        } else {
+            res.status(400).send({ message: "Failed to add user (group not found or user already in group)."});
+        }
+    } catch (error) {
+        console.error("Error in /group_adduser route:", error);
+        // Send a 500 error for any database exceptions
+        res.status(500).send({ message: "Internal server error." });
+    }
 });
 
 // Default error handler
@@ -260,7 +312,8 @@ function setAuthCookies(res, authToken) {
     });
 }
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`nodemailerProjectsss is listening at http://localhost:${port}`);
 });
 
+peerProxy(httpService);

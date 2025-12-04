@@ -3,6 +3,7 @@ import {BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-
 import { Login } from './login/login';
 import { Messaging } from './messaging/messaging';
 import { Discover } from './discover/discover';
+import { GroupDetail } from './discover/groupDetail';
 import { About } from './about/about';
 import { AuthState } from './login/authState'
 import { CreateGroup } from './discover/createGroup';
@@ -73,29 +74,6 @@ function App() {
     };
 
 
-    // const [groups, setGroups] = React.useState(() => {
-
-    //     // On initial load, read from LocalStorage (if exists) else default list
-    //     const saved = localStorage.getItem('groups');
-    //     return saved ? JSON.parse(saved) : [
-    //         { name: 'Punk Rock Lovers (Provo)'},
-    //         { name: 'Intramural Football (Saturdays'},
-    //         { name: 'Medieval Larping '},
-    //         { name: 'Orem Baseball'},
-    //         { name: 'Hiking Club'},
-    //         { name: 'Sunset Squad'},
-    //     ];
-    // });
-
-    // how can I add more statess to app.jsx, such as my OTPInput.jsx state, my recovered.jsx state, and a reset.jsx state. (these can be found in src/login)
-
-    // // Function to handle creation of a new group
-    // const handleCreateGroup = (name) => {
-    //     const newGroups = [...groups, { name }];
-    //     setGroups(newGroups);
-    //     localStorage.setItem('groups', JSON.stringify(newGroups));
-    // };
-
     const onAuthChange = (userName, authState) => {
         setUserName(userName);
         setAuthState(authState);
@@ -151,12 +129,21 @@ function App() {
                     } 
                     exact 
                 />
-                <Route path='/discover' element={<Discover groups={groups}/>} />
+                <Route 
+                    path='/discover' 
+                    element={
+                        <Discover 
+                            groups={groups}
+                            userName={userName}
+                        />
+                    } 
+                />
                 <Route path='/messaging' element={<Messaging />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/create-group'element={
                     <CreateGroup onCreate={handleCreateGroup} />
                 }/>
+                <Route path="/groups/:groupId" element={<GroupDetail />} />
                 <Route path='/recover-otp' element={<OTPInput />} />
                 <Route path='/recover-reset' element={<Reset />} />
                 <Route path='recovered-success' element={<Recovered />} />

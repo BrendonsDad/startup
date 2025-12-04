@@ -34,6 +34,54 @@ async function updateUser(user) {
     await userCollection.updateOne({ email: user.email }, {$set: user})
 }
 
+async function removeUserFromGroup(groupId, userId) {
+    const result = await groupCollection.updateOne(
+        {name: groupId}, 
+        { $pull: { users: userId}}
+    );
+    return result;
+}
+
+async function AddUserToGroup(groupName, userName) {
+
+    try {
+        const result = await groupCollection.updateOne(
+            {name: groupName},
+            { $push: { users: userName } }
+        );
+
+        if (result.matchedCount === 0) {
+            console.log(`Group not found with name: ${groupName}`);
+            return false;
+        } else if (result.modifiedCount === 1) {
+            console.log(`Successfully added user to group: ${groupName}`)
+            return true;
+        } else {
+            //  Handle case where the document was found but nothing was modified
+            return false;
+        }
+    } catch (error) {
+        console.error("Error adding user to group:", error);
+        throw error; // Re-throw  the error for upstream handling
+    }
+
+}
+
+async function getGroupUsers(groupName) {
+    try {
+        const group = await groupCollection.findOne({ name: groupName }, { projection: { users: 1, _id: 0 } });
+
+        if (group) {
+            return group.users;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching group users:", error);
+        throw error; 
+    }
+}
+
 async function addGroup(group) {
     return groupCollection.insertOne(group);
 }
@@ -50,4 +98,7 @@ module.exports = {
     updateUser,
     addGroup,
     getGroups,
+    AddUserToGroup,
+    getGroupUsers,
+    removeUserFromGroup,
 };
