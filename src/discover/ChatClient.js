@@ -5,8 +5,13 @@ export class ChatClient {
 
         constructor(groupId) {
             const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-            const backendPort = 4000;
-            const host = window.location.hostname + ':' + backendPort;
+            let host;
+            const hostname = window.location.hostname;
+            if (hostname === 'localhost' || hostname === '::1') {
+                host = hostname + ':4000';
+            } else {
+                host = window.location.host;
+            }
             this.socket = new WebSocket(`${protocol}://${host}/ws/${groupId}`);
 
             this.socket.onerror = (err) => {

@@ -5,8 +5,15 @@ export class DMChatClient {
 
     constructor(currentUserName, targetUserName) {
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-        const backendPort = 4000;
-        const host = window.location.hostname + ':' + backendPort;
+        // Connect to backend: use :4000 only for local dev, otherwise same-origin
+        // Thank you TA Horizon for helping me dubug this
+        let host;
+        const hostname = window.location.hostname;
+        if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
+            host = hostname + ':4000';
+        } else {
+            host = window.location.host;
+        }
         this.socket = new WebSocket(`${protocol}://${host}/ws/dm`);
 
         this.currentUserName = currentUserName;
