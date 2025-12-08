@@ -1,6 +1,98 @@
 import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ChatClient } from './ChatClient';
+import './GroupDetails.css';
+
+// Extracted Conversation component to prevent remounting when parent re-renders
+function Conversation({ webSocket, currentUserName, groupId }) {
+    const [chats, setChats] = React.useState([]);
+    const containerRef = React.useRef(null);
+    const historyReceivedRef = React.useRef(false);
+
+    console.log('Conversation component rendered for user:', currentUserName, 'groupId:', groupId);
+
+    // helper: format timestamps nicely
+    function formatTime(ts) {
+        const d = new Date(ts);
+        return d.toLocaleString();
+    }
+
+    // check whether to show a timestamp before this message
+    function shouldShowTimestamp(index) {
+        if (index === 0) return true;
+        const prev = chats[index - 1];
+        const cur = chats[index];
+        if (!prev || !cur || !prev.ts || !cur.ts) return true;
+        const diffMs = new Date(cur.ts) - new Date(prev.ts);
+        return diffMs > 1000 * 60 * 60; // > 1 hour
+    }
+
+    // scroll to bottom whenever chats change
+    React.useEffect(() => {
+        if (containerRef.current) {
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
+    }, [chats]);
+
+    // handle incoming chat messages (and initial history)
+    React.useEffect(() => {
+        console.log('Setting up observer for user:', currentUserName);
+        const handler = (chat) => {
+            if (chat.event === 'history') {
+                console.log(`[${currentUserName}] Received history event. historyReceivedRef.current:`, historyReceivedRef.current, 'chats:', chat.msg?.length || 0);
+                if (!historyReceivedRef.current) {
+                    console.log(`[${currentUserName}] Applying history for the first time`);
+                    historyReceivedRef.current = true;
+                    setChats([...(chat.msg || [])]);
+                } else {
+                    console.log(`[${currentUserName}] Ignoring duplicate history event`);
+                }
+                return;
+            }
+
+            if (chat.event === 'received' || chat.event === 'sent') {
+                console.log(`[${currentUserName}] Received chat message from`, chat.from);
+                const messageObj = {
+                    from: chat.from,
+                    msg: chat.msg,
+                    ts: chat.ts || new Date().toISOString()
+                };
+                setChats(prev => [...prev, messageObj]);
+            }
+        };
+
+        webSocket.addObserver(handler);
+        return () => {
+            console.log(`[${currentUserName}] Cleaning up observer`);
+            webSocket.removeObserver(handler);
+        };
+    }, [webSocket, currentUserName]);
+
+    return (
+        <section>
+            <div id='chat-text' ref={containerRef} style={{ overflowY: 'auto', padding: '8px' }}>
+                {chats.map((chat, index) => {
+                    const isMe = chat.from === currentUserName || chat.from === 'Me';
+                    return (
+                        <div
+                            key={index}
+                            className={`messageRow ${isMe ? 'myMessageRow' : 'theirMessageRow'}`}
+                            style={{ display: 'flex', justifyContent: isMe ? 'flex-end' : 'flex-start', marginBottom: '6px' }}
+                        >
+                            <div className={`messageBubble ${isMe ? 'myBubble' : 'theirBubble'}`} style={{ maxWidth: '75%' }}>
+                                <div style={{ fontWeight: 'bold' }}>{chat.from}</div>
+                                <div>{chat.msg}</div>
+                                {shouldShowTimestamp(index) && (
+                                    <div style={{ fontSize: '0.75em', color: '#999', marginTop: '4px' }}>{formatTime(chat.ts)}</div>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </section>
+    );
+}
 
 export function GroupDetail() {
     const { groupId } = useParams();
@@ -74,34 +166,20 @@ export function GroupDetail() {
 
         navigatingToMessagingRef.current = true;
 
+        // Save current user email to localStorage for messaging
+        localStorage.setItem('userEmail', currentUserName);
+
         navigate(`/messaging/${targetUserName}`, {
             state: { currentUser: currentUserName }
         });
     };
 
-    const handleBack = async () => {
-        try {
-            const response = await fetch('/api/group/group_removeuser', {
-                method: 'delete', 
-                headers: { 'Content-Type': 'application/json'}, 
-                body: JSON.stringify({ username: currentUserName, group: groupId })
-            });
-
-            if (response.ok) {
-                console.log(`User ${currentUserName} removed from group ${groupId}`)
-
-                if (webSocket && typeof webSocket.close === 'function') {
-                    try { webSocket.close(); } catch(e) { console.warn('Error closing websocket', e); }
-                }
-                navigate('/discover');
-            } else {
-                console.error('Failed to leave group:', response.statusText);
-                navigate('/discover');
-            }
-        } catch (error) {
-            console.error('Network error while leaving group:', error);
-            navigate('/discover');
+    const handleBack = () => {
+        // Close the WebSocket; the server will broadcast 'left' presence to other clients
+        if (webSocket && typeof webSocket.close === 'function') {
+            try { webSocket.close(); } catch(e) { console.warn('Error closing websocket', e); }
         }
+        navigate('/discover');
     };
 
 
@@ -122,12 +200,6 @@ export function GroupDetail() {
         const [message, setMessage] = React.useState('');
 
         const disabled = name === '' || !webSocket.connected;
-        
-
-        //testing
-        console.log(`Input disabled status: ${disabled}`);
-        console.log(`Is name empty? ${name === ''}`);
-        console.log(`Is WebSocket connected? ${webSocket.connected}`);
 
         function doneMessage(e) {
             if (e.key === 'Enter') {
@@ -140,48 +212,19 @@ export function GroupDetail() {
             setMessage('');
         }
 
-        
         return (
             <section>
                 <fieldset id='chat-controls'>
                     <legend>Chat</legend>
-                    <input disabled={disabled} onKeyDown={(e) => doneMessage(e)} value={message} onChange={(e) => setMessage(e.target.value)}  type='text' />
+                    <input disabled={disabled} onKeyDown={(e) => doneMessage(e)} value={message} onChange={(e) => setMessage(e.target.value)} type='text' />
                     <button disabled={disabled || !message} onClick={sendMsg}>
                         Send
                     </button>
                 </fieldset>
             </section>
-
         );
     }
 
-    function Conversation({ webSocket }) {
-        const [chats, setChats] = React.useState([]);
-
-
-        React.useEffect(() => {
-            const handler = (chat) => {
-                setChats((prevMessages) => [...prevMessages, chat]);
-            };
-
-            webSocket.addObserver(handler);
-            
-            return () => {
-                webSocket.removeObserver(handler);
-            };
-        }, [webSocket]);
-
-        const chatEls = chats.map((chat, index) => (
-            <div key={index}>
-                <span className={chat.event}>{chat.from}</span> {chat.msg}
-            </div>
-        ));
-        return (
-            <section>
-                <div id='chat-text'>{chatEls}</div>
-            </section>
-        )
-    }
 
     return (
         <main className='container-fluid bg-secondary text-center'>
@@ -219,8 +262,8 @@ export function GroupDetail() {
             </div>
 
             <div className="chat-window">
+                <Conversation webSocket={webSocket} currentUserName={currentUserName} groupId={groupId} />
                 <Message name={currentUserName} webSocket={webSocket} />
-                <Conversation webSocket={webSocket} />
             </div>
 
             <button className="btn btn-primary redbutton" onClick={handleBack}>

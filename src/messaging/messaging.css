@@ -1,36 +1,59 @@
-td {
-    max-width: 40vw;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  
-.message {
-  margin-right: auto;
-  margin-left: 0;
-  width: 30em;
+/* DM messaging uses same bubble and row styles as group chat */
+#chat-text {
+  background: #202022;
+  padding: 12px;
+  border-radius: 6px;
+  width: 85vw;
+  max-width: 1100px;
+  height: 60vh;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-.sharesong {
-  margin-right: 0;
-  margin-left: auto;
-  padding-top: 15px;
-  padding-bottom: 15px;
+.messageBubble {
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.06);
 }
 
-.textExample {
-  max-width:100%;
-  padding-top: 15;
+.theirBubble {
+  background: #fff;
+  color: #111;
+  border: 1px solid #eee;
+  text-align: left;
 }
 
-.invite {
-  margin-right:0;
-  margin-left: auto;
-  padding-bottom: 0
-  ;
+.myBubble {
+  background: #c23333;
+  color: #fff;
+  text-align: right;
 }
 
-.friend {
-  margin-left:0;
-  margin-right:auto;
+.messageRow {
+  margin-bottom: 6px;
+  display: flex;
+}
+
+.myMessageRow { justify-content: flex-end; }
+.theirMessageRow { justify-content: flex-start; }
+
+#chat-controls {
+  width: 85vw;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#chat-controls input[type="text"] {
+  flex: 1 1 auto;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#chat-controls button {
+  flex: 0 0 auto;
+  padding: 8px 12px;
 }

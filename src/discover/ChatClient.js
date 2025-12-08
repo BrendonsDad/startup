@@ -7,7 +7,7 @@ export class ChatClient {
             const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
             let host;
             const hostname = window.location.hostname;
-            if (hostname === 'localhost' || hostname === '::1') {
+            if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
                 host = hostname + ':4000';
             } else {
                 host = window.location.host;
@@ -47,6 +47,11 @@ export class ChatClient {
                     return;
                 }
 
+                if (data.type === 'chatHistory' || data.type === 'history') {
+                    this.notifyObservers('history', null, data.chats);
+                    return;
+                }
+
                 // Handle user list (initial users in group)
                 if (data.type === 'userList') {
                     this.notifyUserListObservers(data.users);
@@ -54,9 +59,12 @@ export class ChatClient {
                 // Handle user presence events (join/leave)
                 else if (data.type === 'userPresence') {
                     this.notifyPresenceObservers(data.event, data.user);
+                } else if (data.type === 'chat') {
+                    // structured chat message from server
+                    this.notifyObservers('received', data.from || data.name, data.msg, data.ts);
                 } else {
-                    // Handle regular chat messages
-                    this.notifyObservers('received', data.name, data.msg);
+                    // Handle legacy/other chat message shapes
+                    this.notifyObservers('received', data.name || data.from, data.msg);
                 }
             };
 
@@ -67,8 +75,15 @@ export class ChatClient {
         }
 
         sendMessage(name, msg) {
-            this.notifyObservers('sent', 'me', msg);
-            this.socket.send(JSON.stringify({ name, msg }));
+            const ts = new Date().toISOString();
+            const payload = {
+                type: 'chat',
+                name,
+                msg,
+                ts
+            };
+            this.notifyObservers('sent', 'Me', msg, ts);
+            this.socket.send(JSON.stringify(payload));
         }
 
         registerUser(name) {
@@ -97,8 +112,8 @@ export class ChatClient {
             }
         }
 
-        notifyObservers(event, from, msg) {
-            this.observers.forEach((h) => h({ event, from , msg }));
+        notifyObservers(event, from, msg, ts) {
+            this.observers.forEach((h) => h({ event, from, msg, ts }));
         }
 
         notifyPresenceObservers(event, user) {

@@ -189,31 +189,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
     res.status(204).end();
 });
 
-//Delete user from active users list in a group
-apiRouter.delete('/group/group_removeuser', async (req, res) => {
-    try {
-        const groupId = req.body.group;
-        const userName = req.body.username;
-
-        // Call the DB function to remove the user from the group list
-        const dbResult = await DB.removeUserFromGroup(groupId, userName);
-
-        if (dbResult.matchedCount === 0) {
-            return res.status(404).json({ message: "Group not found" });
-        }
-
-        if (dbResult.modifiedCount === 0) {
-            // This might mean the group was found, but the user wasnt in the list
-            return res.status(404).json({ message: "User not found in this group" });
-        }
-
-        // successful deletion from group
-        res.status(204).end();
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-});
+;
 
 // Middle ware to verify that the user is authorized to call an endpoint
 const verifyAuth = async (req, res, next) => {
@@ -262,6 +238,102 @@ apiRouter.put('/group/group_adduser', verifyAuth, async (req, res) => {
     }
 });
 
+// Get all conversations for the authenticated user
+apiRouter.get('/conversations', verifyAuth, async (req, res) => {
+    try {
+        const user = await findUser('token', req.cookies[authCookieName]);
+        if (!user) {
+            return res.status(401).send({ message: 'Unauthorized' });
+        }
+        
+        const conversations = await DB.getUserConversations(user.email);
+        
+        // Map to include the other participant's email and last message info for UI
+        const conversationList = conversations.map(conv => {
+            const otherParticipant = DB.getOtherParticipant(conv, user.email);
+            const lastMessage = conv.messages && conv.messages.length > 0 
+                ? conv.messages[conv.messages.length - 1]
+                : null;
+            
+            return {
+                _id: conv._id,
+                participantEmail: otherParticipant,
+                lastMessage: lastMessage,
+                updatedAt: conv.updatedAt || conv.createdAt,
+                messageCount: conv.messages ? conv.messages.length : 0,
+                isUnread: conv.unreadBy && conv.unreadBy.includes(user.email)
+            };
+        });
+        
+        res.status(200).send(conversationList);
+    } catch (error) {
+        console.error('Error fetching conversations:', error);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
+// Get a specific conversation by ID (with security check)
+apiRouter.get('/conversations/:conversationId', verifyAuth, async (req, res) => {
+    try {
+        const user = await findUser('token', req.cookies[authCookieName]);
+        if (!user) {
+            return res.status(401).send({ message: 'Unauthorized' });
+        }
+        
+        const conversation = await DB.getConversation(req.params.conversationId, user.email);
+        
+        if (!conversation) {
+            return res.status(403).send({ message: 'Forbidden: You are not a participant in this conversation' });
+        }
+        
+        res.status(200).send(conversation);
+    } catch (error) {
+        console.error('Error fetching conversation:', error);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
+// Get or create a conversation with another user
+apiRouter.post('/conversations/start', verifyAuth, async (req, res) => {
+    try {
+        const user = await findUser('token', req.cookies[authCookieName]);
+        if (!user) {
+            return res.status(401).send({ message: 'Unauthorized' });
+        }
+        
+        const otherUserEmail = req.body.participantEmail;
+        if (!otherUserEmail) {
+            return res.status(400).send({ message: 'participantEmail is required' });
+        }
+        
+        const conversation = await DB.getOrCreateConversation(user.email, otherUserEmail);
+        // Mark as read for the current user when they open the conversation
+        await DB.markConversationAsRead(conversation._id, user.email);
+        res.status(200).send(conversation);
+    } catch (error) {
+        console.error('Error creating/getting conversation:', error);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
+// Mark a conversation as read for the current user
+apiRouter.post('/conversations/:conversationId/mark-read', verifyAuth, async (req, res) => {
+    try {
+        const user = await findUser('token', req.cookies[authCookieName]);
+        if (!user) {
+            return res.status(401).send({ message: 'Unauthorized' });
+        }
+        
+        const conversationId = req.params.conversationId;
+        await DB.markConversationAsRead(conversationId, user.email);
+        
+        res.status(200).send({ message: 'Conversation marked as read' });
+    } catch (error) {
+        console.error('Error marking conversation as read:', error);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
 // Default error handler
 app.use(function (err, req, res, next) {
     res.status(500).send({ type: err.name, message: err.message });
@@ -287,6 +359,7 @@ async function createUser(email, password) {
         email: email,
         password: passwordHash,
         token: uuid.v4(),
+        conversationIds: [],
     };
     await DB.addUser(user);
 

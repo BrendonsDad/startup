@@ -1,25 +1,25 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 300px;
+  grid-gap: 1em;
+  color:aqua;
+  justify-content: center;
+  clear: both;
+}
 
-  .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 300px;
-    grid-gap: 1em;
-    color:aqua;
-    justify-content: center;
-    clear: both;
-  }
+.container > div {
 
-  .container > div {
-
-    background-color: black;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    color:aliceblue;
-  }
+  background-color: black;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  color:aliceblue;
+}
 
 
 .makeGroup {
-  padding: 50px;
+padding: 50px;
 }
+
